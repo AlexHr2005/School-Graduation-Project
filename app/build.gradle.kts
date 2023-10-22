@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "elsys.project"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "elsys.project"
