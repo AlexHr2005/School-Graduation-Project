@@ -10,10 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CallRecordRetriever {
-    public static final String MISSED = "missed";
-    public static final String REJECTED = "rejected";
+    public static final int MISSED = CallLog.Calls.MISSED_TYPE;
+    public static final int REJECTED = CallLog.Calls.REJECTED_TYPE;
 
-    public String checkMissedCalls(Context context) {
+
+    public String checkMissedCalls(Context context, int callState) {
+
         ContentResolver contentResolver = context.getContentResolver();
 
         String[] projection = {
@@ -25,7 +27,7 @@ public class CallRecordRetriever {
 
         String selection = CallLog.Calls.TYPE + " = ?";
         String[] selectionArgs = {
-                Integer.toString(CallLog.Calls.REJECTED_TYPE),
+                Integer.toString(callState),
         };
 
         Cursor cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, projection, selection, selectionArgs,
