@@ -2,10 +2,12 @@ package elsys.project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import elsys.project.modules.phone_calls.CallRecordRetriever;
@@ -18,10 +20,15 @@ public class MainActivity extends AppCompatActivity implements NewCallHandler {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CallStateReceiver callStateReceiver = new CallStateReceiver();
+        /*CallStateReceiver callStateReceiver = new CallStateReceiver();
         CallStateReceiver.bindHandler(this);
         IntentFilter intentFilter = new IntentFilter(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-        registerReceiver(callStateReceiver, intentFilter);
+        registerReceiver(callStateReceiver, intentFilter);*/
+    }
+
+    public void goToAlarms(View view) {
+        Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
+        startActivity(intent);
     }
 
 

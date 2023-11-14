@@ -10,7 +10,6 @@ public class CallStateReceiver extends BroadcastReceiver {
     private static NewCallHandler stateChangeHandler;
     //variable that says whether new missed or rejected call exists
     private static boolean newCallExists = false;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
