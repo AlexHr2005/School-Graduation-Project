@@ -14,6 +14,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import elsys.project.AlarmRingActivity;
 import elsys.project.R;
 
 public class AlarmService extends Service {
@@ -22,7 +23,7 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent notificationIntent = new Intent(this, RingActivity.class);
+        Intent notificationIntent = new Intent(this, AlarmRingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Log.d("lalala", "bababa");
@@ -32,6 +33,7 @@ public class AlarmService extends Service {
         Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setContentTitle(alarmTitle)
                 .setContentText("Bla bla bla")
+                .setSmallIcon(R.drawable.notification_icon)
                 .setContentIntent(pendingIntent)
                 .build();
 

@@ -11,7 +11,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "It's time!", Toast.LENGTH_SHORT).show();
-        //startAlarmService(context, intent);
+        startAlarmService(context, intent);
     }
 
     private void startAlarmService(Context context, Intent intent) {
