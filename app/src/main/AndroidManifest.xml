@@ -26,6 +26,7 @@
         android:testOnly="false"
         android:theme="@style/Theme.Project"
         tools:targetApi="34">
+
         <activity
             android:name=".AlarmRingActivity"
             android:exported="false" />
