@@ -5,26 +5,18 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.WorkflowViewHolder> {
-    private List<Workflow> workflows;
     Resources resources;
 
-    public WorkflowAdapter(List<Workflow> workflows, Resources resources) {
-        this.workflows = workflows;
+    public WorkflowAdapter(Resources resources) {
         this.resources =  resources;
     }
 
@@ -37,9 +29,9 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
     @Override
     public void onBindViewHolder(@NonNull WorkflowViewHolder holder, int position) {
-        Workflow workflow = workflows.get(position);
+        Workflow workflow = WorkflowsList.getWorkflowByPosition(position);
 
-        holder.workflowName.setText(workflow.getName());
+        holder.workflowNameView.setText(workflow.getName());
 
         holder.optionsButton.setOnClickListener(view -> showPopupMenu(view));
 
@@ -58,16 +50,16 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
     @Override
     public int getItemCount() {
-        return workflows.size();
+        return WorkflowsList.workflowsCount();
     }
 
     public static class WorkflowViewHolder extends RecyclerView.ViewHolder {
-        public TextView workflowName;
+        public TextView workflowNameView;
         public MaterialButton optionsButton;
 
         public WorkflowViewHolder(@NonNull View itemView) {
             super(itemView);
-            workflowName = itemView.findViewById(R.id.workflowName);
+            workflowNameView = itemView.findViewById(R.id.workflowNameView);
             optionsButton = itemView.findViewById(R.id.optionsButton);
         }
     }
@@ -81,16 +73,16 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
             public boolean onMenuItemClick(MenuItem menuItem) {
                 int item_id = menuItem.getItemId();
 
-                if(R.id.menu_option1 == item_id) {
-                    //TODO Handle option 1
+                if(R.id.delete_option == item_id) {
+                    //TODO Handle option
                     return true;
                 }
-                else if (R.id.menu_option2 == item_id) {
-                    //TODO Handle option 2
+                else if (R.id.edit_option == item_id) {
+                    //TODO Handle option
                     return true;
                 }
-                else if (R.id.menu_option3 == item_id) {
-                    //TODO Handle option 3
+                else if (R.id.rename_option == item_id) {
+                    //TODO Handle option
                     return true;
                 }
                 else return false;

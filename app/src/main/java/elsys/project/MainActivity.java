@@ -8,9 +8,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.google.android.material.divider.MaterialDividerItemDecoration;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -20,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        WorkflowsList.loadWorkflows(this);
 
         recyclerView = findViewById(R.id.workflowRecycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -31,37 +31,12 @@ public class MainActivity extends AppCompatActivity {
         materialDividerItemDecoration.setLastItemDecorated(false);
         recyclerView.addItemDecoration(materialDividerItemDecoration);
 
-        List<Workflow> workflows = createSampleWorkflows();
         Resources resources = getResources();
-        adapter = new WorkflowAdapter(workflows, resources);
+        adapter = new WorkflowAdapter(resources);
         recyclerView.setAdapter(adapter);
-    }
 
-    private List<Workflow> createSampleWorkflows() {
-        List<Workflow> workflows = new ArrayList<>();
-        workflows.add(new Workflow("Workflow1"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow3"));
-        workflows.add(new Workflow("Workflow4"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("Workflow2"));
-        workflows.add(new Workflow("x: Workflow2"));
+        FloatingActionButton floatingActionButton = findViewById(R.id.add_workflow);
 
-        return workflows;
     }
 }
 

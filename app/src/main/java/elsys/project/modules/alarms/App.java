@@ -4,6 +4,9 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
+import android.util.Log;
+
+import java.io.File;
 
 public class App extends Application {
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
@@ -13,6 +16,9 @@ public class App extends Application {
         super.onCreate();
 
         createNotificationChannel();
+
+        File filesDir = getFilesDir();
+        File workflowsDir = new File(filesDir, "workflows");
     }
 
     private void createNotificationChannel() {
