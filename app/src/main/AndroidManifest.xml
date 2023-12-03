@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="false"
-        android:theme="@style/Theme.Project"
+        android:theme="@style/AppTheme"
         tools:targetApi="34">
 
         <activity

@@ -1,5 +1,6 @@
 package elsys.project;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,13 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.WorkflowViewHolder> {
     private List<Workflow> workflows;
+    Resources resources;
 
-    public WorkflowAdapter(List<Workflow> workflows) {
+    public WorkflowAdapter(List<Workflow> workflows, Resources resources) {
         this.workflows = workflows;
+        this.resources =  resources;
     }
 
     @NonNull
@@ -35,12 +41,19 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
         holder.workflowName.setText(workflow.getName());
 
-        holder.optionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(view);
-            }
-        });
+        holder.optionsButton.setOnClickListener(view -> showPopupMenu(view));
+
+        if(position == getItemCount() - 1) {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+            int marginBottom = resources.getDimensionPixelSize(R.dimen.recyclerview_last_item_margin_bottom);
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, marginBottom);
+            holder.itemView.setLayoutParams(params);
+        }
+        else {
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, 0);
+            holder.itemView.setLayoutParams(params);
+        }
     }
 
     @Override
@@ -50,7 +63,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
     public static class WorkflowViewHolder extends RecyclerView.ViewHolder {
         public TextView workflowName;
-        public ImageButton optionsButton;
+        public MaterialButton optionsButton;
 
         public WorkflowViewHolder(@NonNull View itemView) {
             super(itemView);

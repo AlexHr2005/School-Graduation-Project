@@ -4,20 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+
+import com.google.android.material.divider.MaterialDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import elsys.project.modules.phone_calls.CallRecordRetriever;
-import elsys.project.modules.phone_calls.CallStateReceiver;
-import elsys.project.modules.phone_calls.NewCallHandler;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -30,9 +23,17 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.workflowRecycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        MaterialDividerItemDecoration materialDividerItemDecoration =
+                new MaterialDividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
+        materialDividerItemDecoration.setDividerInsetStart(100);
+        materialDividerItemDecoration.setDividerInsetEnd(100);
+        materialDividerItemDecoration.setLastItemDecorated(false);
+        recyclerView.addItemDecoration(materialDividerItemDecoration);
 
         List<Workflow> workflows = createSampleWorkflows();
-        adapter = new WorkflowAdapter(workflows);
+        Resources resources = getResources();
+        adapter = new WorkflowAdapter(workflows, resources);
         recyclerView.setAdapter(adapter);
     }
 
@@ -40,6 +41,26 @@ public class MainActivity extends AppCompatActivity {
         List<Workflow> workflows = new ArrayList<>();
         workflows.add(new Workflow("Workflow1"));
         workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow3"));
+        workflows.add(new Workflow("Workflow4"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("Workflow2"));
+        workflows.add(new Workflow("x: Workflow2"));
+
         return workflows;
     }
 }
