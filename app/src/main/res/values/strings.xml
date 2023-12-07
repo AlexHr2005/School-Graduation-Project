@@ -2,6 +2,9 @@
     <string name="app_name">Project</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="workflows_dir">workflows</string>
+    <string name="workflow_name_dialog_title">Change workflow name?</string>
+    <string name="workflow_name_dialog_cancel">Cancel</string>
+    <string name="workflow_name_dialog_rename">Rename</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

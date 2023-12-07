@@ -7,6 +7,10 @@ import android.os.Build;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
+
+import elsys.project.R;
+import elsys.project.WorkflowsList;
 
 public class App extends Application {
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
@@ -18,7 +22,26 @@ public class App extends Application {
         createNotificationChannel();
 
         File filesDir = getFilesDir();
-        File workflowsDir = new File(filesDir, "workflows");
+        File workflowsDir = new File(filesDir, String.valueOf(R.string.workflows_dir));
+
+        if(!workflowsDir.exists()) {
+            workflowsDir.mkdirs();
+        }
+
+        /*File file1 = new File(workflowsDir, "my first workflow");
+        File file2 = new File(workflowsDir, "i am lazy");
+        File file3 = new File(workflowsDir, "ffff");
+
+        try {
+            file1.createNewFile();
+            file2.createNewFile();
+            file3.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
+
+        WorkflowsList.setWorkflowsDir(workflowsDir);
+        WorkflowsList.loadWorkflows(this);
     }
 
     private void createNotificationChannel() {

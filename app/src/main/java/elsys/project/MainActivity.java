@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        WorkflowsList.loadWorkflows(this);
+        //WorkflowsList.loadWorkflows(this);
 
         recyclerView = findViewById(R.id.workflowRecycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(materialDividerItemDecoration);
 
         Resources resources = getResources();
-        adapter = new WorkflowAdapter(resources);
+        adapter = new WorkflowAdapter(resources, this);
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.add_workflow);

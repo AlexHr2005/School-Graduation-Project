@@ -1,10 +1,15 @@
 package elsys.project;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -12,12 +17,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.dialog.MaterialDialogs;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
+
+import java.io.File;
+import java.util.List;
 
 public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.WorkflowViewHolder> {
-    Resources resources;
+    private Resources resources;
+    private Context context;
 
-    public WorkflowAdapter(Resources resources) {
-        this.resources =  resources;
+
+    public WorkflowAdapter(Resources resources, Context context) {
+        this.resources = resources;
+        this.context = context;
     }
 
     @NonNull
@@ -33,7 +48,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
         holder.workflowNameView.setText(workflow.getName());
 
-        holder.optionsButton.setOnClickListener(view -> showPopupMenu(view));
+        holder.optionsButton.setOnClickListener(view -> showPopupMenu(view, holder));
 
         if(position == getItemCount() - 1) {
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
@@ -50,7 +65,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
     @Override
     public int getItemCount() {
-        return WorkflowsList.workflowsCount();
+        return WorkflowsList.getWorkflowsCount();
     }
 
     public static class WorkflowViewHolder extends RecyclerView.ViewHolder {
@@ -64,29 +79,56 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
         }
     }
 
-    private void showPopupMenu(View view) {
+    private void showPopupMenu(View view, WorkflowViewHolder holder) {
         PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
         popupMenu.getMenuInflater().inflate(R.menu.workflow_options, popupMenu.getMenu());
 
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                int item_id = menuItem.getItemId();
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            int item_id = menuItem.getItemId();
 
-                if(R.id.delete_option == item_id) {
-                    //TODO Handle option
-                    return true;
+            if(R.id.delete_option == item_id) {
+                String workflowName = holder.workflowNameView.getText().toString();
+                boolean isDeleted = WorkflowsList.deleteWorkflow(workflowName);
+                if(isDeleted) {
+                    WorkflowsList.removeFromList(workflowName);
+                    notifyItemRemoved(holder.getAdapterPosition());
                 }
-                else if (R.id.edit_option == item_id) {
-                    //TODO Handle option
-                    return true;
-                }
-                else if (R.id.rename_option == item_id) {
-                    //TODO Handle option
-                    return true;
-                }
-                else return false;
+                return true;
             }
+            else if (R.id.edit_option == item_id) {
+                //TODO Handle option
+                return true;
+            }
+            else if (R.id.rename_option == item_id) {
+                //TODO Handle option
+                // must use Material Design dialogs
+
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                new MaterialAlertDialogBuilder(context)
+                        .setTitle(R.string.workflow_name_dialog_title)
+                        .setView(input)
+                        .setNeutralButton(R.string.workflow_name_dialog_cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton(R.string.workflow_name_dialog_rename, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String workflowName = holder.workflowNameView.getText().toString();
+                                boolean isRenamed = WorkflowsList.renameWorkflow(workflowName, input.getText().toString());
+                                if(isRenamed) {
+                                    notifyItemChanged(holder.getAdapterPosition());
+                                }
+                            }
+                        })
+                        .show();
+                return true;
+            }
+            else return false;
         });
 
         popupMenu.show();
