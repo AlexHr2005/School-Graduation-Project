@@ -35,6 +35,7 @@ public class WorkflowsList {
     }
 
     public static void loadWorkflows(Context context) {
+        workflows.clear();
         File filesDir = context.getFilesDir();
         File workflowsDir = new File(filesDir, String.valueOf(R.string.workflows_dir));
 

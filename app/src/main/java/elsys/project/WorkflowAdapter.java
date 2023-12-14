@@ -104,6 +104,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
                 // must use Material Design dialogs
 
                 final EditText input = new EditText(context);
+                input.setText(holder.workflowNameView.getText());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
 
                 new MaterialAlertDialogBuilder(context)
