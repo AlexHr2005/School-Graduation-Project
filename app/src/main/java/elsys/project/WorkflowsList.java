@@ -52,8 +52,10 @@ public class WorkflowsList {
 
     }
 
-    public static void addWorkflow() {
+    public static void addWorkflow(File file) {
         //TODO: method for adding new workflow to the list
+        Workflow workflow = new Workflow(file.getName());
+        workflows.add(workflow);
     }
 
     public static boolean deleteWorkflow(String workflowName) {

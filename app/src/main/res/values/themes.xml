@@ -43,4 +43,9 @@
         <item name="iconPadding">@dimen/m3_btn_icon_only_icon_padding</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Button.IconButton</item>
     </style>
+
+    <style name="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox</item>
+        <item name="endIconMode">dropdown_menu</item>
+    </style>
 </resources>

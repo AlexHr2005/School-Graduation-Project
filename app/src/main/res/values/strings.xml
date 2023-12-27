@@ -6,6 +6,24 @@
     <string name="workflow_name_dialog_cancel">Cancel</string>
     <string name="workflow_name_dialog_rename">Rename</string>
     <string name="workflow_name_dialog_proceed">Proceed</string>
+    <array name="module_types">
+        <item>Alarm</item>
+        <item>SMS</item>
+        <item>Phone call</item>
+    </array>
+    <array name="alarm_types">
+        <item>Background</item>
+        <item>Sound</item>
+    </array>
+    <array name="SMS_types">
+        <item>Send</item>
+        <item>Receive</item>
+    </array>
+    <array name="phone_call_types">
+        <item>Call log</item>
+        <item>Receive</item>
+    </array>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

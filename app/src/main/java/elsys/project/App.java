@@ -1,4 +1,4 @@
-package elsys.project.modules.alarms;
+package elsys.project;
 
 import android.app.Application;
 import android.app.NotificationChannel;

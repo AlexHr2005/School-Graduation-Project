@@ -1,8 +1,7 @@
-package elsys.project;
+package elsys.project.activities;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,22 +16,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.divider.MaterialDividerItemDecoration;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Objects;
+
+import elsys.project.R;
+import elsys.project.WorkflowAdapter;
+import elsys.project.WorkflowsList;
+import elsys.project.activities.edit_workflow.EditWorkflowActivity;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -89,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(context, EditWorkflowActivity.class);
                         startActivity(intent);
+                        File newFile = new File(WorkflowsList.getWorkflowsDir(), String.valueOf(input.getText()));
+                        try {
+                            if(newFile.createNewFile()) {
+                                WorkflowsList.loadWorkflows(context);
+                                adapter.notifyDataSetChanged();
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 })
                 .show();
@@ -102,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         File destinationDir = WorkflowsList.getWorkflowsDir();
 
         try {
+            //TODO: check for existence of files
             InputStream inputStream = getContentResolver().openInputStream(sourceUri);
             if(inputStream != null) {
                 File destinationFile = new File(destinationDir, getFileNameFromUri(sourceUri));

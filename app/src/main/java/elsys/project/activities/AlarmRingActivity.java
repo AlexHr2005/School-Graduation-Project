@@ -1,4 +1,4 @@
-package elsys.project;
+package elsys.project.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 
+import elsys.project.R;
 import elsys.project.modules.alarms.Alarm;
 import elsys.project.modules.alarms.AlarmService;
 

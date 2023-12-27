@@ -18,7 +18,7 @@
         android:maxSdkVersion="32" />
 
     <application
-        android:name=".modules.alarms.App"
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -30,10 +30,10 @@
         android:theme="@style/AppTheme"
         tools:targetApi="34">
         <activity
-            android:name=".EditWorkflowActivity"
+            android:name=".activities.edit_workflow.EditWorkflowActivity"
             android:exported="false" />
         <activity
-            android:name=".AlarmRingActivity"
+            android:name=".activities.AlarmRingActivity"
             android:exported="false" />
 
         <receiver
@@ -42,7 +42,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".AlarmActivity"
+            android:name=".activities.AlarmActivity"
             android:exported="true" />
 
         <receiver
@@ -55,7 +55,7 @@
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

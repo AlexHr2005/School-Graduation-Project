@@ -8,13 +8,13 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import elsys.project.AlarmRingActivity;
+import elsys.project.activities.AlarmRingActivity;
+import elsys.project.App;
 import elsys.project.R;
 
 public class AlarmService extends Service {
