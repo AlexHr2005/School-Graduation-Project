@@ -8,14 +8,19 @@ import android.view.View;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
+
 import elsys.project.R;
 
 public class EditWorkflowActivity extends AppCompatActivity {
+    public ArrayList<Module> modules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_workflow);
+
+        modules = new ArrayList<>(0);
     }
 
     public void createModule(View view) {

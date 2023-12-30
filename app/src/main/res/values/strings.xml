@@ -6,22 +6,48 @@
     <string name="workflow_name_dialog_cancel">Cancel</string>
     <string name="workflow_name_dialog_rename">Rename</string>
     <string name="workflow_name_dialog_proceed">Proceed</string>
-    <array name="module_types">
-        <item>Alarm</item>
+    <array name="module_titles">
+        <item>AlARM</item>
         <item>SMS</item>
-        <item>Phone call</item>
+        <item>PHONE CALL</item>
     </array>
-    <array name="alarm_types">
-        <item>Background</item>
-        <item>Sound</item>
+    <array name="alarm_subheads">
+        <item>background</item>
+        <item>sound</item>
     </array>
-    <array name="SMS_types">
-        <item>Send</item>
-        <item>Receive</item>
+    <array name="SMS_subheads">
+        <item>send</item>
+        <item>receive</item>
     </array>
-    <array name="phone_call_types">
+    <array name="phone_call_subheads">
         <item>Call log</item>
         <item>Receive</item>
+    </array>
+
+    <array name="background_alarm_options">
+        <item>Repetition time</item>
+    </array>
+
+    <array name="sound_alarm_options">
+        <item>Repetition time</item>
+    </array>
+    
+    <array name="SMS_send_options">
+        <item>Target(s)</item>
+        <item>Text</item>
+    </array>
+    
+    <array name="SMS_receive_options">
+        <item>Sender</item>
+        <item>Text</item>
+    </array>
+    
+    <array name="phone_call_log_options">
+        
+    </array>
+    
+    <array name="phone_call_receive_options">
+
     </array>
 
     <string name="large_text">

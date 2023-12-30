@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/moduleTypeLayout"
+        android:id="@+id/moduleTitleLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="381dp"
         android:layout_height="58dp"
@@ -22,13 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            app:simpleItems="@array/module_types" />
+            app:simpleItems="@array/module_titles" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/moduleSubtypeLayout"
+        android:id="@+id/moduleSubheadLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="381dp"
         android:layout_height="58dp"
@@ -37,13 +37,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moduleTypeLayout">
+        app:layout_constraintTop_toBottomOf="@+id/moduleTitleLayout">
 
         <AutoCompleteTextView
             android:id="@+id/moduleSubtypeMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/moduleOption1Layout"
+        android:layout_width="381dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moduleSubheadLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/moduleOption1Value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/moduleOption2Layout"
+        android:layout_width="381dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moduleOption1Layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/moduleOption2Value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +45,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
     @Override
     public void onBindViewHolder(@NonNull WorkflowViewHolder holder, int position) {
+        Log.d("worflow items count", ""+ getItemCount());
         Workflow workflow = WorkflowsList.getWorkflowByPosition(position);
 
         holder.workflowNameView.setText(workflow.getName());
@@ -58,6 +60,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
         }
         else {
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
+            Log.d("workflow margin", ""+ params.bottomMargin);
             params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, 0);
             holder.itemView.setLayoutParams(params);
         }
