@@ -7,7 +7,7 @@
     <string name="workflow_name_dialog_rename">Rename</string>
     <string name="workflow_name_dialog_proceed">Proceed</string>
     <array name="module_titles">
-        <item>AlARM</item>
+        <item>ALARM</item>
         <item>SMS</item>
         <item>PHONE CALL</item>
     </array>

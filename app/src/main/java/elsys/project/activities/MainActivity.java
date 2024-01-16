@@ -35,10 +35,10 @@ import elsys.project.WorkflowsList;
 import elsys.project.activities.edit_workflow.EditWorkflowActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private WorkflowAdapter adapter;
-    private Context context = this;
-    private ActivityResultLauncher<String> filePickerLauncher;
+    public RecyclerView recyclerView;
+    public WorkflowAdapter adapter;
+    public Context context = this;
+    public ActivityResultLauncher<String> filePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
         materialDividerItemDecoration.setLastItemDecorated(false);
         recyclerView.addItemDecoration(materialDividerItemDecoration);
 
-        Resources resources = getResources();
-        adapter = new WorkflowAdapter(resources, this);
+        adapter = new WorkflowAdapter(getResources(), this);
         recyclerView.setAdapter(adapter);
 
         filePickerLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {

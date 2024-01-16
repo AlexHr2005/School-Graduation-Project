@@ -5,20 +5,57 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/dialogToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/cancelModuleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Cancel" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Module Creation"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/saveModuleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Save" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moduleTitleLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="381dp"
         android:layout_height="58dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="124dp"
         android:hint="Module Type"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/moduleTypeMenu"
+            android:id="@+id/moduleTitleMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -26,42 +63,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/moduleSubheadLayout"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="381dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="56dp"
-        android:hint="Module subtype"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moduleTitleLayout">
-
-        <AutoCompleteTextView
-            android:id="@+id/moduleSubtypeMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moduleOption1Layout"
         android:layout_width="381dp"
         android:layout_height="58dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moduleSubheadLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/moduleOption1Value"
+            android:id="@+id/moduleOption1Input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,19 +84,50 @@
         android:id="@+id/moduleOption2Layout"
         android:layout_width="381dp"
         android:layout_height="58dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moduleOption1Layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/moduleOption2Value"
+            android:id="@+id/moduleOption2Input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/moduleSubheadLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="381dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="52dp"
+        android:hint="Module subtype"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moduleTitleLayout">
+
+        <AutoCompleteTextView
+            android:id="@+id/moduleSubheadMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/selectTimeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select time"
+        android:layout_marginTop="52dp"
+        android:visibility="gone"
+        style="@style/Widget.Material3.Button.TonalButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moduleOption2Layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

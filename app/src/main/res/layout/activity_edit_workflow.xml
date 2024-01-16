@@ -6,6 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".activities.edit_workflow.EditWorkflowActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/dialogToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/cancelWorkflowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:onClick="cancelActivity"
+            android:text="Cancel"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <TextView
+            android:id="@+id/titleTextViewWorkflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Workflow creation"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/saveModuleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="saveWorkflowToFile"
+            android:text="Save"
+            tools:layout_editor_absoluteX="323dp"
+            tools:layout_editor_absoluteY="8dp" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_module_button"
         android:layout_width="wrap_content"
@@ -18,5 +60,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/add_module" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/moduleRecycle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

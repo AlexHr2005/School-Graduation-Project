@@ -27,8 +27,8 @@ import java.io.File;
 import java.util.List;
 
 public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.WorkflowViewHolder> {
-    private Resources resources;
-    private Context context;
+    public Resources resources;
+    public Context context;
 
 
     public WorkflowAdapter(Resources resources, Context context) {
