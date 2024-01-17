@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -87,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(context, EditWorkflowActivity.class);
+                        Log.d("Workflows file lines", String.valueOf(input.getText()));
+                        intent.putExtra("Workflow name", input.getText().toString());
+                        Log.d("Workflows file lines", "12");
                         startActivity(intent);
                         File newFile = new File(WorkflowsList.getWorkflowsDir(), String.valueOf(input.getText()));
                         try {

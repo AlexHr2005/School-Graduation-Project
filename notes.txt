@@ -88,9 +88,11 @@ module pairs / двойки модули:
 3. пропуснати или отхвърлени обаждания
 - следене за пропуснато или отхвърлено обаждане -> аларма (шумна)
 
-ALARM:backgorund(
-ALARM:sound(
-PHONE_CALL:log(
-SMS:receive(["xxx"], "")
+ALARM:backgorund(repetition time) //повтаря се през определено време
+ALARM:sound(time)
+PHONE_CALL:log()
+SMS:send(receivers, text)
+
+SMS:send(["xxx"], "")
 SMS:receive("", "fdsdfdsf")
 
