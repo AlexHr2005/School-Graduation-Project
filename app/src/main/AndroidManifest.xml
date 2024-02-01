@@ -13,8 +13,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <application
@@ -29,6 +30,15 @@
         android:testOnly="false"
         android:theme="@style/AppTheme"
         tools:targetApi="34">
+        <receiver
+            android:name=".activities.edit_workflow.modules.ModuleToExecute"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="project.elsys.EXECUTE_MODULE"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".activities.edit_workflow.EditWorkflowActivity"
             android:exported="false" />

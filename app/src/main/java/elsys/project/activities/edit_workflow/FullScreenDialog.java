@@ -67,7 +67,7 @@ public class FullScreenDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.create_module_dialog, container, false);
 
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-                .setTitleText("Select timing between repetitions")
+                .setTitleText("Pick timing before firing off")
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .build();
 
@@ -227,9 +227,9 @@ public class FullScreenDialog extends DialogFragment {
                 else if(pickedSubhead.equals(phoneCallSubheads[0])) {
                     optionsHints = getResources().getStringArray(R.array.phone_call_log_options);
                 }
-                else if(pickedSubhead.equals(phoneCallSubheads[1])) {
+                /*else if(pickedSubhead.equals(phoneCallSubheads[1])) {
                     optionsHints = getResources().getStringArray(R.array.phone_call_receive_options);
-                }
+                }*/
                 else {
                     optionsHints = new String[0];
                 }

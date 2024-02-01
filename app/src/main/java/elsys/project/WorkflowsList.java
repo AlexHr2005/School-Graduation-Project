@@ -39,11 +39,7 @@ public class WorkflowsList {
         File filesDir = context.getFilesDir();
         File workflowsDir = new File(filesDir, String.valueOf(R.string.workflows_dir));
 
-        Log.d("workflow files", "workflow directory exists");
         String[] workflowNames = workflowsDir.list();
-        if(workflowsDir.list().length == 0) {
-            Log.d("workflow files","workflow directory is empty");
-        }
 
         assert workflowNames != null;
         for (String workflowName : workflowNames) {
@@ -53,7 +49,6 @@ public class WorkflowsList {
     }
 
     public static void addWorkflow(File file) {
-        //TODO: method for adding new workflow to the list
         Workflow workflow = new Workflow(file.getName());
         workflows.add(workflow);
     }
@@ -71,16 +66,15 @@ public class WorkflowsList {
         File sourceFile = toBeRenamed.getWorkflowFile();
         File targetFile = new File(workflowsDir, newName);
 
-        Log.d("workflow names", "Source File: " + sourceFile.getAbsolutePath());
-        Log.d("workflow names", "Target File: " + targetFile.getAbsolutePath());
-
         boolean isRenamed = sourceFile.renameTo(targetFile);
-        Log.d("workflow names", newName);
-        Log.d("workflow names", toBeRenamed.getName());
         if(isRenamed) {
             toBeRenamed.setName(newName);
             toBeRenamed.setWorkflowFile(targetFile);
         }
         return isRenamed;
+    }
+
+    public static StringBuilder getWorkflowContent(String workflowName) {
+        return getWorkflowByName(workflowName).readFile();
     }
 }

@@ -1,7 +1,5 @@
 package elsys.project.activities.edit_workflow.modules;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 
 import elsys.project.R;
@@ -12,4 +10,6 @@ public abstract class Module {
     public String subhead;
 
     public abstract ArrayList<String> getOptionsValues();
+
+    public abstract void execute();
 }

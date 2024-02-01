@@ -32,20 +32,16 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
 
     @Override
     public void onBindViewHolder(@NonNull ModuleViewHolder holder, int position) {
-        Log.d("module items", "n1");
         Module module = EditWorkflowActivity.modules.get(position);
 
         holder.moduleTitle.setText(module.title);
         holder.moduleSubhead.setText(module.subhead);
-
-        Log.d("module items", "n2");
 
         ArrayList<String> optionsValues = module.getOptionsValues();
 
         for (int i = 0; i < optionsValues.size(); i++) {
             String value = optionsValues.get(i);
             holder.moduleOptions.get(i).setText(value);
-            Log.d("module items", value);
         }
 
         holder.deleteModule.setOnClickListener(new View.OnClickListener() {

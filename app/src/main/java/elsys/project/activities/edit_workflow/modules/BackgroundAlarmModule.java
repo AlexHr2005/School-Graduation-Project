@@ -7,4 +7,9 @@ public class BackgroundAlarmModule extends AlarmModule{
     public BackgroundAlarmModule(LocalTime repetitionTime) {
         super(repetitionTime);
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

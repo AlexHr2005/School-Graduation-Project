@@ -13,7 +13,7 @@ public class SendSmsModule extends SmsModule{
     @Override
     public ArrayList<String> getOptionsValues() {
         ArrayList<String> optionValues = super.getOptionsValues();
-        optionValues.add(targetNumber);
+        optionValues.add(0, targetNumber);
         return optionValues;
     }
 }

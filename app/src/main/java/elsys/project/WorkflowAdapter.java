@@ -52,6 +52,13 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
         holder.optionsButton.setOnClickListener(view -> showPopupMenu(view, holder));
 
+        holder.startOrStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                workflow.run(context);
+            }
+        });
+
         if(position == getItemCount() - 1) {
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
             int marginBottom = resources.getDimensionPixelSize(R.dimen.recyclerview_last_item_margin_bottom);
@@ -74,11 +81,13 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
     public static class WorkflowViewHolder extends RecyclerView.ViewHolder {
         public TextView workflowNameView;
         public MaterialButton optionsButton;
+        public MaterialButton startOrStopButton;
 
         public WorkflowViewHolder(@NonNull View itemView) {
             super(itemView);
             workflowNameView = itemView.findViewById(R.id.workflowNameView);
             optionsButton = itemView.findViewById(R.id.optionsButton);
+            startOrStopButton = itemView.findViewById(R.id.startOrStopWorkflow);
         }
     }
 

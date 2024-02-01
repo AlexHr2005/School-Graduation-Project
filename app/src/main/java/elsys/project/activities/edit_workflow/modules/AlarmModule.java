@@ -17,8 +17,7 @@ public abstract class AlarmModule extends Module {
     @Override
     public ArrayList<String> getOptionsValues() {
         ArrayList<String> optionsValues = new ArrayList<>(0);
-        String repetitionTimeString = repetitionTime.getHour() + " hours, " + repetitionTime.getMinute() + " minutes";
-        optionsValues.add(repetitionTimeString);
+        optionsValues.add(repetitionTime.toString());
         return optionsValues;
     }
 }

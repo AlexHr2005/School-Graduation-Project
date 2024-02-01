@@ -9,15 +9,27 @@
 
         <TextView
             android:id="@+id/workflowNameView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="15dp"
             android:layout_weight="1"
+            android:fontFamily="monospace"
             android:text="asdsdgdg"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/startOrStopWorkflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?attr/materialIconButtonFilledStyle"
+            app:icon="@drawable/start_workflow_icon"
+            android:layout_marginRight="20dp"
             android:layout_gravity="center_vertical"
-            android:fontFamily="monospace"/>
+            />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/optionsButton"

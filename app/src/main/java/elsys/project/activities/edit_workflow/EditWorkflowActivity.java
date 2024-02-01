@@ -46,9 +46,7 @@ public class EditWorkflowActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         Intent intent = getIntent();
-        Log.d("Workflows file lines", "0.1");
         workflowName = intent.getStringExtra("Workflow name");
-        Log.d("Workflows file lines", workflowName);
     }
 
     public void createModule(View view) {
@@ -66,10 +64,8 @@ public class EditWorkflowActivity extends AppCompatActivity {
     }
 
     public void saveWorkflowToFile(View view) throws IOException {
-        Log.d("Workflows file lines", "1");
         Workflow workflow = WorkflowsList.getWorkflowByName(workflowName);
         File workflowFile = workflow.getWorkflowFile();
-        Log.d("Workflows file lines", workflowFile.toString());
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(workflowFile, true));
 
         for(int i = 0; i < modules.size(); i++) {
@@ -87,7 +83,6 @@ public class EditWorkflowActivity extends AppCompatActivity {
             if(i != modules.size() - 1) {
                 bufferedWriter.newLine();
             }
-            //Log.d("Workflows file lines", line);
         }
         bufferedWriter.close();
 

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SmsReceiverModule extends SmsModule{
     public String senderNumber;
 
-    public SmsReceiverModule(String text, String senderNumber) {
+    public SmsReceiverModule(String senderNumber, String text) {
         super(text);
         this.senderNumber = senderNumber;
     }
@@ -13,7 +13,7 @@ public class SmsReceiverModule extends SmsModule{
     @Override
     public ArrayList<String> getOptionsValues() {
         ArrayList<String> optionValues = super.getOptionsValues();
-        optionValues.add(senderNumber);
+        optionValues.add(0, senderNumber);
         return optionValues;
     }
 }
