@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import elsys.project.R;
 import elsys.project.WorkflowsList;
+import elsys.project.activities.edit_workflow.modules.Module;
 
 public class App extends Application {
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
@@ -42,6 +43,8 @@ public class App extends Application {
 
         WorkflowsList.setWorkflowsDir(workflowsDir);
         WorkflowsList.loadWorkflows(this);
+
+        Module.setContext(getApplicationContext());
     }
 
     private void createNotificationChannel() {

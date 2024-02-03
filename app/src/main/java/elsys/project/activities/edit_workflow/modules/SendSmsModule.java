@@ -16,4 +16,9 @@ public class SendSmsModule extends SmsModule{
         optionValues.add(0, targetNumber);
         return optionValues;
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

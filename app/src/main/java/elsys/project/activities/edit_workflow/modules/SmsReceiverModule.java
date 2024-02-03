@@ -16,4 +16,9 @@ public class SmsReceiverModule extends SmsModule{
         optionValues.add(0, senderNumber);
         return optionValues;
     }
+
+    @Override
+    public void execute() {
+
+    }
 }

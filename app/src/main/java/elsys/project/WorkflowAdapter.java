@@ -55,7 +55,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
         holder.startOrStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                workflow.run(context);
+                workflow.run(context.getApplicationContext());
             }
         });
 

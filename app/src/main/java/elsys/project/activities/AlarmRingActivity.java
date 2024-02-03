@@ -10,6 +10,7 @@ import android.widget.EditText;
 import java.util.Calendar;
 
 import elsys.project.R;
+import elsys.project.activities.edit_workflow.modules.Module;
 import elsys.project.modules.alarms.Alarm;
 import elsys.project.modules.alarms.AlarmService;
 
@@ -41,7 +42,7 @@ public class AlarmRingActivity extends AppCompatActivity {
                 calendar.get(Calendar.MINUTE) + minutesToSnooze
         );
 
-        alarm.schedule(this);
+        alarm.schedule(this, Module.SOUND_ALARM);
 
         finish();
     }

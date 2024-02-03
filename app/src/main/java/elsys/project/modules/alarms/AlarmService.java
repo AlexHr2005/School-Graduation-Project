@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 import elsys.project.activities.AlarmRingActivity;
 import elsys.project.App;
 import elsys.project.R;
+import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
 
 public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;
@@ -65,6 +66,9 @@ public class AlarmService extends Service {
 
         mediaPlayer.stop();
         vibrator.cancel();
+
+        Intent executeModule = new Intent(getApplicationContext(), ModuleToExecute.class);
+        getApplicationContext().sendBroadcast(executeModule);
     }
 
     @Nullable

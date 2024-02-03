@@ -93,47 +93,51 @@ public class Workflow {
         String[] lines = fileContent.split("\n");
 
         ArrayList<Module> modules = new ArrayList<>(0);
+        Module currModule = null;
         for(String line : lines) {
             String[] lineParts = line.split("[:();]");
-            Module currModule = null;
-            Log.d("workflow file read", line);
+            Log.d("lalala", line);
 
-            if(lineParts[0].equals(moduleTitles[0])) {
-                String[] alarmSubheads = context.getResources().getStringArray(R.array.alarm_subheads);
+            if(lineParts[0].equals(Module.ALARM)) {
+                Log.d("lalala", "it is alarm");
                 int hours = Integer.parseInt(lineParts[2]);
                 int minutes = Integer.parseInt(lineParts[3]);
-                if(lineParts[1].equals(alarmSubheads[0])) {
+                if(lineParts[1].equals(Module.BACKGROUND_ALARM)) {
+                    Log.d("lalala", "it is background alarm");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         currModule = new BackgroundAlarmModule(LocalTime.of(hours, minutes));
                     }
                 }
-                else if(lineParts[2].equals(alarmSubheads[1])) {
+                else if(lineParts[1].equals(Module.SOUND_ALARM)) {
+                    Log.d("lalala", "it is sound alarm");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         currModule = new SoundAlarmModule(LocalTime.of(hours, minutes));
                     }
                 }
             }
-            else if(lineParts[0].equals(moduleTitles[1])) {
+            else if(lineParts[0].equals(Module.SMS)) {
                 String[] smsSubheads = context.getResources().getStringArray(R.array.SMS_subheads);
                 String number = lineParts[2];
                 String text = lineParts[3];
-                if(lineParts[1].equals(smsSubheads[0])) {
+                if(lineParts[1].equals(Module.SEND_SMS)) {
                     currModule = new SendSmsModule(number, text);
                 }
-                else if(lineParts[1].equals(smsSubheads[1])) {
+                else if(lineParts[1].equals(Module.RECEIVE_SMS)) {
                     currModule = new SmsReceiverModule(number, text);
                 }
             }
-            else if(lineParts[0].equals(moduleTitles[2])) {
+            else if(lineParts[0].equals(Module.PHONE_CALL)) {
                 String[] phoneCallSubheads = context.getResources().getStringArray(R.array.phone_call_subheads);
-                if(lineParts[1].equals(phoneCallSubheads[0])) {
+                if(lineParts[1].equals(Module.RECEIVE_PHONE_CALL)) {
                     currModule = new CallReceiverModule();
                 }
             }
             modules.add(currModule);
-            ModuleToExecute.setModules(modules);
-            Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
-            context.sendBroadcast(executeModule);
+            Log.d("lalala", "module added");
         }
+        ModuleToExecute.setModules(modules);
+        Intent executeModule = new Intent(context, ModuleToExecute.class);
+        context.sendBroadcast(executeModule);
+        Log.d("lalala", "end");
     }
 }

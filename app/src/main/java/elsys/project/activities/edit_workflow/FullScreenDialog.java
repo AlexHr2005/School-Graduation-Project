@@ -91,11 +91,6 @@ public class FullScreenDialog extends DialogFragment {
         ArrayList<TextInputEditText> optionsInputs = new ArrayList<>(0);
         optionsInputs.add(view.findViewById(R.id.moduleOption1Input));
         optionsInputs.add(view.findViewById(R.id.moduleOption2Input));
-
-        String[] moduleTitles = getResources().getStringArray(R.array.module_titles);
-        String[] alarmSubheads = getResources().getStringArray(R.array.alarm_subheads);
-        String[] smsSubheads = getResources().getStringArray(R.array.SMS_subheads);
-        String[] phoneCallSubheads = getResources().getStringArray(R.array.phone_call_subheads);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,39 +107,34 @@ public class FullScreenDialog extends DialogFragment {
 
                 Log.d("module items", "1");
 
-                if(pickedTitle.equals(moduleTitles[0])) {
+                if(pickedTitle.equals(Module.ALARM)) {
                     LocalTime timePickerValue = null;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                         timePickerValue = LocalTime.of(materialTimePicker.getHour(), materialTimePicker.getMinute());
                     }
-                    if(pickedSubhead.equals(alarmSubheads[0])) {
+                    if(pickedSubhead.equals(Module.BACKGROUND_ALARM)) {
                         newModule = new BackgroundAlarmModule(timePickerValue);
                     }
-                    else if(pickedSubhead.equals(alarmSubheads[1])) {
+                    else if(pickedSubhead.equals(Module.SOUND_ALARM)) {
                         newModule = new SoundAlarmModule(timePickerValue);
                     }
                     Log.d("module items", "2");
                 }
-                else if(pickedTitle.equals(moduleTitles[1])) {
-                    if(pickedSubhead.equals(smsSubheads[0])) {
+                else if(pickedTitle.equals(Module.SMS)) {
+                    if(pickedSubhead.equals(Module.SEND_SMS)) {
                         newModule = new SendSmsModule(optionsInputs.get(0).getText().toString(), optionsInputs.get(1).getText().toString());
                     }
-                    else if(pickedSubhead.equals(smsSubheads[1])) {
+                    else if(pickedSubhead.equals(Module.RECEIVE_SMS)) {
                         newModule = new SmsReceiverModule(optionsInputs.get(0).getText().toString(), optionsInputs.get(1).getText().toString());
                     }
                     Log.d("module items", "3");
                 }
-                else if(pickedTitle.equals(moduleTitles[2])) {
-                    if(pickedSubhead.equals(phoneCallSubheads[0])) {
+                else if(pickedTitle.equals(Module.PHONE_CALL)) {
+                    if(pickedSubhead.equals(Module.RECEIVE_PHONE_CALL)) {
                         newModule = new CallLogModule();
-                    }
-                    else if(pickedSubhead.equals(phoneCallSubheads[1])) {
-                        newModule = new CallReceiverModule();
                     }
                     Log.d("module items", "4");
                 }
-                newModule.title = pickedTitle;
-                newModule.subhead = pickedSubhead;
                 EditWorkflowActivity.modules.add(newModule);
                 EditWorkflowActivity.adapter.notifyDataSetChanged();
                 Log.d("module items", "5");
@@ -173,7 +163,7 @@ public class FullScreenDialog extends DialogFragment {
 
                 pickedTitle = (String) adapterView.getItemAtPosition(i);
 
-                if(pickedTitle.equals(moduleTitles[0])) {
+                if(pickedTitle.equals(Module.ALARM)) {
                     items = getResources().getStringArray(R.array.alarm_subheads);
                     adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_dropdown_item_1line, items);
                     for(TextInputLayout optionLayout : optionsLayouts) {
@@ -182,7 +172,7 @@ public class FullScreenDialog extends DialogFragment {
                     buttonSelectTime.setVisibility(View.VISIBLE);
 
                 }
-                else if(pickedTitle.equals(moduleTitles[1])) {
+                else if(pickedTitle.equals(Module.SMS)) {
                     items = getResources().getStringArray(R.array.SMS_subheads);
                     adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_dropdown_item_1line, items);
                     for(TextInputLayout optionLayout : optionsLayouts) {
@@ -190,7 +180,7 @@ public class FullScreenDialog extends DialogFragment {
                     }
                     buttonSelectTime.setVisibility(View.GONE);
                 }
-                else if(pickedTitle.equals(moduleTitles[2])){
+                else if(pickedTitle.equals(Module.PHONE_CALL)){
                     items = getResources().getStringArray(R.array.phone_call_subheads);
                     adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_dropdown_item_1line, items);
                     for(TextInputLayout optionLayout : optionsLayouts) {
@@ -210,26 +200,29 @@ public class FullScreenDialog extends DialogFragment {
 
                 pickedSubhead = (String) adapterView.getItemAtPosition(i);
 
-                String[] optionsHints;
+                String[] optionsHints = null;
 
-                if(pickedSubhead.equals(alarmSubheads[0])) {
-                    optionsHints = getResources().getStringArray(R.array.background_alarm_options);
+                if(pickedTitle.equals(Module.ALARM)) {
+                    if(pickedSubhead.equals(Module.BACKGROUND_ALARM)) {
+                        optionsHints = getResources().getStringArray(R.array.background_alarm_options);
+                    }
+                    else if(pickedSubhead.equals(Module.SOUND_ALARM)) {
+                        optionsHints = getResources().getStringArray(R.array.sound_alarm_options);
+                    }
                 }
-                else if(pickedSubhead.equals(alarmSubheads[1])) {
-                    optionsHints = getResources().getStringArray(R.array.sound_alarm_options);
+                else if(pickedTitle.equals(Module.SMS)) {
+                    if(pickedSubhead.equals(Module.SEND_SMS)) {
+                        optionsHints = getResources().getStringArray(R.array.SMS_send_options);
+                    }
+                    else if(pickedSubhead.equals(Module.RECEIVE_SMS)) {
+                        optionsHints = getResources().getStringArray(R.array.SMS_receive_options);
+                    }
                 }
-                else if(pickedSubhead.equals(smsSubheads[0])) {
-                    optionsHints = getResources().getStringArray(R.array.SMS_send_options);
+                else if(pickedTitle.equals(Module.PHONE_CALL)) {
+                    if(pickedSubhead.equals(Module.RECEIVE_PHONE_CALL)) {
+                        optionsHints = getResources().getStringArray(R.array.phone_call_log_options);
+                    }
                 }
-                else if(pickedSubhead.equals(smsSubheads[1])) {
-                    optionsHints = getResources().getStringArray(R.array.SMS_receive_options);
-                }
-                else if(pickedSubhead.equals(phoneCallSubheads[0])) {
-                    optionsHints = getResources().getStringArray(R.array.phone_call_log_options);
-                }
-                /*else if(pickedSubhead.equals(phoneCallSubheads[1])) {
-                    optionsHints = getResources().getStringArray(R.array.phone_call_receive_options);
-                }*/
                 else {
                     optionsHints = new String[0];
                 }
@@ -238,7 +231,6 @@ public class FullScreenDialog extends DialogFragment {
                     optionsLayouts.get(index).setHint(optionsHints[index]);
                     optionsLayouts.get(index).setEnabled(true);
                 }
-
             }
         });
 

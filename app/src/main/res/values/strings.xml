@@ -20,7 +20,7 @@
         <item>receive</item>
     </array>
     <array name="phone_call_subheads">
-        <item>receiveCall</item>
+        <item>receive</item>
     </array>
 
     <array name="background_alarm_options">

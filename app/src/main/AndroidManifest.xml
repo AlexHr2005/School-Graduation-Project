@@ -36,6 +36,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="project.elsys.EXECUTE_MODULE"/>
+                <action android:name="project.elsys.EXECUTE_MODULE"/>
             </intent-filter>
         </receiver>
 
