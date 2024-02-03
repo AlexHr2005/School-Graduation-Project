@@ -17,9 +17,9 @@ public class ModuleToExecute extends BroadcastReceiver {
         moduleToExecute++;
         Log.d("lalala", "" + moduleToExecute);
         if(moduleToExecute < modules.size()) {
+            //TODO: think of a way to minimize or avoid using recursion
             String a = modules.get(moduleToExecute).title + " " + modules.get(moduleToExecute).subhead;
             Log.d("lalala", a);
-            //TODO: execute the module on a background threat
             modules.get(moduleToExecute).execute();
         }
         else {
