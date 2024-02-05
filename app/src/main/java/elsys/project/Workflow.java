@@ -87,8 +87,6 @@ public class Workflow {
     }
 
     public void run(Context context) {
-        String[] moduleTitles = context.getResources().getStringArray(R.array.module_titles);
-
         String fileContent = readFile().toString();
         String[] lines = fileContent.split("\n");
 
@@ -116,18 +114,16 @@ public class Workflow {
                 }
             }
             else if(lineParts[0].equals(Module.SMS)) {
-                String[] smsSubheads = context.getResources().getStringArray(R.array.SMS_subheads);
                 String number = lineParts[2];
                 String text = lineParts[3];
                 if(lineParts[1].equals(Module.SEND_SMS)) {
                     currModule = new SendSmsModule(number, text);
                 }
                 else if(lineParts[1].equals(Module.RECEIVE_SMS)) {
-                    currModule = new SmsReceiverModule(number, text);
+                    currModule = new SmsReceiverModule(number, text, context);
                 }
             }
             else if(lineParts[0].equals(Module.PHONE_CALL)) {
-                String[] phoneCallSubheads = context.getResources().getStringArray(R.array.phone_call_subheads);
                 if(lineParts[1].equals(Module.RECEIVE_PHONE_CALL)) {
                     currModule = new CallReceiverModule();
                 }

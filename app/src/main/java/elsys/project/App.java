@@ -3,6 +3,7 @@ package elsys.project;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -45,6 +46,7 @@ public class App extends Application {
         WorkflowsList.loadWorkflows(this);
 
         Module.setContext(getApplicationContext());
+        BroadcastReceiversManager.setContext(getApplicationContext());
     }
 
     private void createNotificationChannel() {

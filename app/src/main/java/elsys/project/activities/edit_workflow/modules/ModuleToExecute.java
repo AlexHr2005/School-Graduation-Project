@@ -8,12 +8,20 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import elsys.project.BroadcastReceiversManager;
+
 public class ModuleToExecute extends BroadcastReceiver {
     private static ArrayList<Module> modules;
     private static int moduleToExecute;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String command = intent.getStringExtra("command");
+        if(command != null) {
+            if(command.equals("unregister smsReceiver")) {
+                BroadcastReceiversManager.unregisterSmsReceiver();
+            }
+        }
         moduleToExecute++;
         Log.d("lalala", "" + moduleToExecute);
         if(moduleToExecute < modules.size()) {
@@ -23,9 +31,8 @@ public class ModuleToExecute extends BroadcastReceiver {
             modules.get(moduleToExecute).execute();
         }
         else {
-            //TODO: what to happen when the workflow is done
+            Log.d("lalala", "end of workflow");
         }
-        Log.d("lalala", "end2");
     }
 
     public static void setModules(ArrayList<Module> modules) {

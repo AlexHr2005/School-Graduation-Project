@@ -5,20 +5,21 @@ import java.util.ArrayList;
 import elsys.project.activities.edit_workflow.modules.Module;
 
 public abstract class SmsModule extends Module {
-    public String Text;
+    public String text;
 
     @Override
     public ArrayList<String> getOptionsValues() {
         ArrayList<String> optionsValues = new ArrayList<>(0);
-        optionsValues.add(Text);
+        optionsValues.add(text);
         return optionsValues;
     }
 
     public SmsModule(String text) {
-        Text = text;
+        title = Module.SMS;
+        this.text = text;
     }
 
     public String getText() {
-        return Text;
+        return text;
     }
 }

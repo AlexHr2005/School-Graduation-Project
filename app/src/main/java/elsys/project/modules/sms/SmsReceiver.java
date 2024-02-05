@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
+
+import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
 
 public class SmsReceiver extends BroadcastReceiver {
 
@@ -30,8 +33,14 @@ public class SmsReceiver extends BroadcastReceiver {
             }
             String message = "SMS from " + messages[i].getOriginatingAddress();
             message += ": " + messages[i].getMessageBody();
-            smsRetriever.onMessageReceived(message);
+            Log.d("lalala", message);
         }
+        Intent executeModule = new Intent(context, ModuleToExecute.class);
+        Log.d("lalala", "1");
+        executeModule.putExtra("command", "unregister smsReceiver");
+        Log.d("lalala", "2");
+        context.sendBroadcast(executeModule);
+        Log.d("lalala", "3");
     }
 
     public static void bindRetriever(SmsRetriever retriever) {

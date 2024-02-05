@@ -3,6 +3,8 @@ package elsys.project.activities.edit_workflow;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -216,6 +218,8 @@ public class FullScreenDialog extends DialogFragment {
                     }
                     else if(pickedSubhead.equals(Module.RECEIVE_SMS)) {
                         optionsHints = getResources().getStringArray(R.array.SMS_receive_options);
+                        optionsInputs.get(0).setInputType(InputType.TYPE_CLASS_PHONE);
+                        optionsInputs.get(0).addTextChangedListener(new PhoneNumberFormattingTextWatcher());
                     }
                 }
                 else if(pickedTitle.equals(Module.PHONE_CALL)) {
