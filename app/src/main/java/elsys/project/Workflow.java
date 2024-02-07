@@ -125,7 +125,8 @@ public class Workflow {
             }
             else if(lineParts[0].equals(Module.PHONE_CALL)) {
                 if(lineParts[1].equals(Module.RECEIVE_PHONE_CALL)) {
-                    currModule = new CallReceiverModule();
+                    String number = lineParts[2];
+                    currModule = new CallReceiverModule(number);
                 }
             }
             modules.add(currModule);

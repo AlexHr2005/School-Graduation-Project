@@ -32,6 +32,7 @@
         android:testOnly="false"
         android:theme="@style/AppTheme"
         tools:targetApi="34">
+
         <receiver
             android:name=".activities.edit_workflow.modules.ModuleToExecute"
             android:enabled="true"

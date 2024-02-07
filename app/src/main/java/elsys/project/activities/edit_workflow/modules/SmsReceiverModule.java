@@ -34,6 +34,6 @@ public class SmsReceiverModule extends SmsModule{
 
     @Override
     public void execute() {
-        BroadcastReceiversManager.registerSmsReceiver();
+        BroadcastReceiversManager.registerSmsReceiver(senderNumber, text);
     }
 }

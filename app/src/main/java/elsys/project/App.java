@@ -30,18 +30,6 @@ public class App extends Application {
             workflowsDir.mkdirs();
         }
 
-        /*File file1 = new File(workflowsDir, "my first workflow");
-        File file2 = new File(workflowsDir, "i am lazy");
-        File file3 = new File(workflowsDir, "ffff");
-
-        try {
-            file1.createNewFile();
-            file2.createNewFile();
-            file3.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
         WorkflowsList.setWorkflowsDir(workflowsDir);
         WorkflowsList.loadWorkflows(this);
 

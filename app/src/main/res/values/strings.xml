@@ -46,7 +46,7 @@
     </array>
     
     <array name="phone_call_receive_options">
-
+        <item>Caller</item>
     </array>
 
     <string name="large_text">

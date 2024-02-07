@@ -20,51 +20,31 @@ public class CallRecordRetriever {
         ContentResolver contentResolver = context.getContentResolver();
 
         String[] projection = {
-                CallLog.Calls.CACHED_NAME,
                 CallLog.Calls.NUMBER,
-                CallLog.Calls.TYPE,
-                CallLog.Calls.DATE
         };
 
+        String[] selectionArgs = {
+                String.valueOf(MISSED),
+                String.valueOf(REJECTED)
+        };
 
-        String[] selectionArgs = new String[0];
+        String selection = CallLog.Calls.TYPE + " = ? OR " + CallLog.Calls.TYPE + " = ?";
 
-        Cursor cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, projection, null, selectionArgs,
+        Cursor cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, projection, selection, selectionArgs,
                 CallLog.Calls.DATE + " DESC");
 
-        String name = "";
-        long callDate = 0;
         String number = "";
-        String type = "";
 
         if (cursor != null) {
             cursor.moveToFirst();
-            int nameColumnIndex = cursor.getColumnIndex(CallLog.Calls.CACHED_NAME);
             int numberColumnIndex = cursor.getColumnIndex(CallLog.Calls.NUMBER);
-            int dateColumnIndex = cursor.getColumnIndex(CallLog.Calls.DATE);
-            int typeColumnIndex = cursor.getColumnIndex(CallLog.Calls.TYPE);
-
-            if (nameColumnIndex >= 0) {
-                name = cursor.getString(nameColumnIndex);
-            }
 
             if (numberColumnIndex >= 0) {
                 number = cursor.getString(numberColumnIndex);
             }
-
-            if (dateColumnIndex >= 0) {
-                callDate = cursor.getLong(dateColumnIndex);
-            }
-
-            if (typeColumnIndex >= 0) {
-                type = cursor.getString(dateColumnIndex);
-            }
             cursor.close();
         }
-
-        Date date = new Date(callDate);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String call = name + " " + number + " " + sdf.format(date) + " " + type;
-        return call;
+        Log.d("lalala", number);
+        return number;
     }
 }

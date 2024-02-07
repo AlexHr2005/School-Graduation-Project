@@ -133,7 +133,7 @@ public class FullScreenDialog extends DialogFragment {
                 }
                 else if(pickedTitle.equals(Module.PHONE_CALL)) {
                     if(pickedSubhead.equals(Module.RECEIVE_PHONE_CALL)) {
-                        newModule = new CallLogModule();
+                        newModule = new CallReceiverModule(optionsInputs.get(0).getText().toString());
                     }
                     Log.d("module items", "4");
                 }
@@ -218,13 +218,11 @@ public class FullScreenDialog extends DialogFragment {
                     }
                     else if(pickedSubhead.equals(Module.RECEIVE_SMS)) {
                         optionsHints = getResources().getStringArray(R.array.SMS_receive_options);
-                        optionsInputs.get(0).setInputType(InputType.TYPE_CLASS_PHONE);
-                        optionsInputs.get(0).addTextChangedListener(new PhoneNumberFormattingTextWatcher());
                     }
                 }
                 else if(pickedTitle.equals(Module.PHONE_CALL)) {
                     if(pickedSubhead.equals(Module.RECEIVE_PHONE_CALL)) {
-                        optionsHints = getResources().getStringArray(R.array.phone_call_log_options);
+                        optionsHints = getResources().getStringArray(R.array.phone_call_receive_options);
                     }
                 }
                 else {

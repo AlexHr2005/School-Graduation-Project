@@ -21,6 +21,9 @@ public class ModuleToExecute extends BroadcastReceiver {
             if(command.equals("unregister smsReceiver")) {
                 BroadcastReceiversManager.unregisterSmsReceiver();
             }
+            else if(command.equals("unregister callReceiver")) {
+                BroadcastReceiversManager.unregisterCallReceiver();
+            }
         }
         moduleToExecute++;
         Log.d("lalala", "" + moduleToExecute);

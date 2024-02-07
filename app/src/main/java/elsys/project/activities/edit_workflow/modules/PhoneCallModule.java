@@ -7,4 +7,8 @@ public abstract class PhoneCallModule extends Module {
     public ArrayList<String> getOptionsValues() {
         return new ArrayList<>(0);
     }
+
+    public PhoneCallModule() {
+        this.title = Module.PHONE_CALL;
+    }
 }
