@@ -15,6 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
@@ -47,6 +48,13 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
     public void onBindViewHolder(@NonNull WorkflowViewHolder holder, int position) {
         Log.d("worflow items count", ""+ getItemCount());
         Workflow workflow = WorkflowsList.getWorkflowByPosition(position);
+        if(workflow.isRunning()) {
+            holder.startOrStopButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.stop_workflow_icon));
+        }
+        else holder.startOrStopButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.start_workflow_icon));
+        Log.d("workflow list", workflow.isAccessible() + "");
+
+        holder.startOrStopButton.setEnabled(workflow.isAccessible());
 
         holder.workflowNameView.setText(workflow.getName());
 
@@ -55,7 +63,24 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
         holder.startOrStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                workflow.run(context.getApplicationContext());
+                if(!workflow.isRunning()) {
+                    workflow.setRunning(true);
+                    for(int i = 0; i < WorkflowsList.size(); i++) {
+                        if(i != position) {
+                            WorkflowsList.getWorkflowByPosition(i).setAccessible(false);
+                        }
+                    }
+                    workflow.run(context.getApplicationContext());
+                }
+                else {
+                    workflow.setRunning(false);
+                    for(int i = 0; i < WorkflowsList.size(); i++) {
+                        if(i != position) {
+                            WorkflowsList.getWorkflowByPosition(i).setAccessible(true);
+                        }
+                    }
+                }
+                notifyDataSetChanged();
             }
         });
 

@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import elsys.project.R;
 import elsys.project.activities.edit_workflow.modules.Module;
+import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
 import elsys.project.modules.alarms.Alarm;
 import elsys.project.modules.alarms.AlarmService;
 
@@ -25,6 +26,8 @@ public class AlarmRingActivity extends AppCompatActivity {
     public void dismissAlarm(View view) {
         Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
         getApplicationContext().stopService(intentService);
+        Intent executeModule = new Intent(getApplicationContext(), ModuleToExecute.class);
+        getApplicationContext().sendBroadcast(executeModule);
         finish();
     }
 
@@ -35,11 +38,9 @@ public class AlarmRingActivity extends AppCompatActivity {
         Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
         getApplicationContext().stopService(intentService);
 
-        Calendar calendar = Calendar.getInstance();
-
         Alarm alarm = new Alarm(
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE) + minutesToSnooze
+                0,
+                minutesToSnooze
         );
 
         alarm.schedule(this, Module.SOUND_ALARM);

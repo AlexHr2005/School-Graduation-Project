@@ -28,13 +28,15 @@ public class ModuleToExecute extends BroadcastReceiver {
         moduleToExecute++;
         Log.d("lalala", "" + moduleToExecute);
         if(moduleToExecute < modules.size()) {
-            //TODO: think of a way to minimize or avoid using recursion
             String a = modules.get(moduleToExecute).title + " " + modules.get(moduleToExecute).subhead;
             Log.d("lalala", a);
             modules.get(moduleToExecute).execute();
         }
         else {
             Log.d("lalala", "end of workflow");
+            moduleToExecute = -1;
+            Intent executeModule = new Intent(context, ModuleToExecute.class);
+            context.sendBroadcast(executeModule);
         }
     }
 

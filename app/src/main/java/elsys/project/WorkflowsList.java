@@ -77,4 +77,9 @@ public class WorkflowsList {
     public static StringBuilder getWorkflowContent(String workflowName) {
         return getWorkflowByName(workflowName).readFile();
     }
+
+    public static int size() {
+        return workflows.size();
+    }
+
 }

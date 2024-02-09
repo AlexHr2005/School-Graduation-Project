@@ -66,9 +66,6 @@ public class AlarmService extends Service {
 
         mediaPlayer.stop();
         vibrator.cancel();
-
-        Intent executeModule = new Intent(getApplicationContext(), ModuleToExecute.class);
-        getApplicationContext().sendBroadcast(executeModule);
     }
 
     @Nullable

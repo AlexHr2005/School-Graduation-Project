@@ -26,6 +26,9 @@ import elsys.project.activities.edit_workflow.modules.SoundAlarmModule;
 public class Workflow {
     private String name;
     private File workflowFile;
+    private boolean running = false;
+    private boolean accessible = true;
+
 
     public Workflow(String name, File workflowFile) {
         this.name = name;
@@ -136,5 +139,21 @@ public class Workflow {
         Intent executeModule = new Intent(context, ModuleToExecute.class);
         context.sendBroadcast(executeModule);
         Log.d("lalala", "end");
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public boolean isAccessible() {
+        return accessible;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public void setAccessible(boolean accessible) {
+        this.accessible = accessible;
     }
 }
