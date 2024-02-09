@@ -1,5 +1,7 @@
 package elsys.project.activities.edit_workflow.modules;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import elsys.project.BroadcastReceiversManager;
@@ -16,6 +18,12 @@ public class CallReceiverModule extends PhoneCallModule{
     @Override
     public void execute() {
         BroadcastReceiversManager.registerCallReceiver(callerNumber);
+    }
+
+    @Override
+    public void stopExecution() {
+        BroadcastReceiversManager.unregisterCallReceiver();
+        Log.d("lalala", "call receiver module stopped");
     }
 
     @Override

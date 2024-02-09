@@ -23,6 +23,7 @@ public abstract class Module {
     public abstract ArrayList<String> getOptionsValues();
 
     public abstract void execute();
+    public abstract void stopExecution();
 
     public static void setContext(Context context) {
         Module.context = context;

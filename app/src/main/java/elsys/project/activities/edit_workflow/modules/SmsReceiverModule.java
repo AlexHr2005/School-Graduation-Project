@@ -2,6 +2,7 @@ package elsys.project.activities.edit_workflow.modules;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -35,5 +36,11 @@ public class SmsReceiverModule extends SmsModule{
     @Override
     public void execute() {
         BroadcastReceiversManager.registerSmsReceiver(senderNumber, text);
+    }
+
+    @Override
+    public void stopExecution() {
+        BroadcastReceiversManager.unregisterSmsReceiver();
+        Log.d("lalala", "sms receiver module stopped");
     }
 }

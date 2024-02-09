@@ -25,12 +25,16 @@ public class SendSmsModule extends SmsModule{
 
     @Override
     public void execute() {
-        //TODO: ensure SMS sending is working on the emulator (and on real phone)
         SendSMS sendSMS = new SendSMS(targetNumber);
         boolean smsSent = sendSMS.sendMessage(text);
         Log.d("lalala", smsSent + "");
         Log.d("lalala", "sms sent");
         Intent executeModule = new Intent(context, ModuleToExecute.class);
         context.sendBroadcast(executeModule);
+    }
+
+    @Override
+    public void stopExecution() {
+
     }
 }

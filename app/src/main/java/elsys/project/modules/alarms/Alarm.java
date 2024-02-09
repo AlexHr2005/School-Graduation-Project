@@ -14,6 +14,7 @@ import elsys.project.R;
 public class Alarm {
     private int hour, minute;
     public static int requestCode = 0;
+    private PendingIntent alarmPendingIntent;
 
     public Alarm(int hour, int minute) {
         this.hour = hour;
@@ -23,10 +24,10 @@ public class Alarm {
     public void schedule(Context context, String alarmType) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Log.d("lalala", alarmType + " written in the Alarm class");
-        Intent intent = new Intent(context, AlarmReceiver.class);
+        Intent intent = new Intent("com.example.myapp.CUSTOM_ACTION");
         intent.putExtra("Alarm type", alarmType);
 
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
+        alarmPendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + hour);
@@ -35,5 +36,9 @@ public class Alarm {
         Log.d("lalala", "alarm created and ready to be scheduled for after " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
         //RTC_WAKEUP - this type of alarm will wake the device if it's screen is off
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmPendingIntent);
+    }
+
+    public void cancel() {
+        alarmPendingIntent.cancel();
     }
 }

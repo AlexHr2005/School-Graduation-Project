@@ -79,6 +79,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
                             WorkflowsList.getWorkflowByPosition(i).setAccessible(true);
                         }
                     }
+                    workflow.stop(context.getApplicationContext());
                 }
                 notifyDataSetChanged();
             }

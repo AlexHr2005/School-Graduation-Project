@@ -16,27 +16,37 @@ public class ModuleToExecute extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String command = intent.getStringExtra("command");
-        if(command != null) {
-            if(command.equals("unregister smsReceiver")) {
-                BroadcastReceiversManager.unregisterSmsReceiver();
+        if(intent.getAction().equals("project.elsys.EXECUTE_MODULE")) {
+            String command = intent.getStringExtra("command");
+            if(command != null) {
+                if(command.equals("unregister smsReceiver")) {
+                    BroadcastReceiversManager.unregisterSmsReceiver();
+                }
+                else if(command.equals("unregister callReceiver")) {
+                    BroadcastReceiversManager.unregisterCallReceiver();
+                }
+                else if(command.equals("unregister alarmReceiver")) {
+                    BroadcastReceiversManager.unRegisterAlarmReceiver();
+                }
             }
-            else if(command.equals("unregister callReceiver")) {
-                BroadcastReceiversManager.unregisterCallReceiver();
+            moduleToExecute++;
+            Log.d("lalala", "" + moduleToExecute);
+            if(moduleToExecute < modules.size()) {
+                String a = modules.get(moduleToExecute).title + " " + modules.get(moduleToExecute).subhead;
+                Log.d("lalala", a);
+                modules.get(moduleToExecute).execute();
+            }
+            else {
+                Log.d("lalala", "end of workflow");
+                moduleToExecute = -1;
+                Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
+                context.sendBroadcast(executeModule);
             }
         }
-        moduleToExecute++;
-        Log.d("lalala", "" + moduleToExecute);
-        if(moduleToExecute < modules.size()) {
-            String a = modules.get(moduleToExecute).title + " " + modules.get(moduleToExecute).subhead;
-            Log.d("lalala", a);
-            modules.get(moduleToExecute).execute();
-        }
-        else {
-            Log.d("lalala", "end of workflow");
-            moduleToExecute = -1;
-            Intent executeModule = new Intent(context, ModuleToExecute.class);
-            context.sendBroadcast(executeModule);
+        else if(intent.getAction().equals("project.elsys.STOP_WORKFLOW")) {
+            Log.d("lalala", "STOP WORKFLOW");
+            modules.get(moduleToExecute).stopExecution();
+            BroadcastReceiversManager.unregisterModuleExecutionReceiver();
         }
     }
 

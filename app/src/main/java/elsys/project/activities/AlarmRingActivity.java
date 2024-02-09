@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -16,6 +17,7 @@ import elsys.project.modules.alarms.Alarm;
 import elsys.project.modules.alarms.AlarmService;
 
 public class AlarmRingActivity extends AppCompatActivity {
+    private static Alarm snoozeAlarm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,28 +25,37 @@ public class AlarmRingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm_ring);
     }
 
-    public void dismissAlarm(View view) {
+    public void dismiss(View view) {
         Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
         getApplicationContext().stopService(intentService);
-        Intent executeModule = new Intent(getApplicationContext(), ModuleToExecute.class);
+        Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
+        executeModule.putExtra("command", "unregister alarmReceiver");
         getApplicationContext().sendBroadcast(executeModule);
+        snoozeAlarm = null;
         finish();
     }
 
-    public void snoozeAlarm(View view) {
+    public void snooze(View view) {
         EditText snoozeTime = findViewById(R.id.snoozeTime);
         int minutesToSnooze = Integer.parseInt(snoozeTime.getText().toString());
 
         Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
         getApplicationContext().stopService(intentService);
 
-        Alarm alarm = new Alarm(
+        snoozeAlarm = new Alarm(
                 0,
                 minutesToSnooze
         );
 
-        alarm.schedule(this, Module.SOUND_ALARM);
+        snoozeAlarm.schedule(this, Module.SOUND_ALARM);
 
         finish();
+    }
+
+    public static void cancelSnoozedAlarm() {
+        if(snoozeAlarm != null) {
+            snoozeAlarm.cancel();
+            Log.d("lalala", "snoozed alarm stopped");
+        }
     }
 }

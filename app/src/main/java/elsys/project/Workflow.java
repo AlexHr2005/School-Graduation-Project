@@ -135,10 +135,17 @@ public class Workflow {
             modules.add(currModule);
             Log.d("lalala", "module added");
         }
+        BroadcastReceiversManager.registerModuleExecutionReceiver();
         ModuleToExecute.setModules(modules);
-        Intent executeModule = new Intent(context, ModuleToExecute.class);
+        Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
         context.sendBroadcast(executeModule);
         Log.d("lalala", "end");
+    }
+
+    public void stop(Context context) {
+        Log.d("lalala", "stop workflow");
+        Intent stopWorkflow = new Intent("project.elsys.STOP_WORKFLOW");
+        context.sendBroadcast(stopWorkflow);
     }
 
     public boolean isRunning() {

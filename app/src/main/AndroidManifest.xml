@@ -33,27 +33,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="34">
 
-        <receiver
-            android:name=".activities.edit_workflow.modules.ModuleToExecute"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="project.elsys.EXECUTE_MODULE"/>
-                <action android:name="project.elsys.EXECUTE_MODULE"/>
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".activities.edit_workflow.EditWorkflowActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AlarmRingActivity"
             android:exported="false" />
-
-        <receiver
-            android:name=".modules.alarms.AlarmReceiver"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".activities.AlarmActivity"
