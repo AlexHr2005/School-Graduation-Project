@@ -37,7 +37,16 @@ public class CallReceiver extends BroadcastReceiver {
                 Log.d("lalala", "d");
                 unansweredCall = false;
                 Log.d("lalala", "d1");
-                if(CallRecordRetriever.returnLastCall(context).equals(number)) {
+
+                boolean rightCall = true;
+
+                if(!number.equals("")) {
+                    if(!CallRecordRetriever.returnLastCall(context).equals(number)) {
+                        rightCall = false;
+                    }
+                }
+
+                if(rightCall) {
                     Log.d("lalala", "e");
                     Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
                     executeModule.putExtra("command", "unregister callReceiver");
