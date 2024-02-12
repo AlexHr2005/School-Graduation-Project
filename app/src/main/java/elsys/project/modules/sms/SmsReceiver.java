@@ -36,7 +36,21 @@ public class SmsReceiver extends BroadcastReceiver {
 
         Log.d("lalala", sender + ": " + messageBody);
 
-        if(sender.equals(number) && messageBody.equals(text)) {
+        boolean endModule = true;
+
+        if(!number.equals("")) {
+            if(!number.equals(sender)) {
+                endModule = false;
+            }
+        }
+
+        if(!text.equals("")) {
+            if(!text.equals(messageBody)) {
+                endModule = false;
+            }
+        }
+
+        if(endModule) {
             Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
             Log.d("lalala", "1");
             executeModule.putExtra("command", "unregister smsReceiver");

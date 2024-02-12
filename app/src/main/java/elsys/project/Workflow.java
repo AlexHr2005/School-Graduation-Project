@@ -96,8 +96,13 @@ public class Workflow {
         ArrayList<Module> modules = new ArrayList<>(0);
         Module currModule = null;
         for(String line : lines) {
+            line += "a";
             String[] lineParts = line.split("[:();]");
             Log.d("lalala", line);
+            for(String linePart : lineParts) {
+                Log.d("lalala", linePart);
+            }
+            Log.d("lalala", lineParts.length + "");
 
             if(lineParts[0].equals(Module.ALARM)) {
                 Log.d("lalala", "it is alarm");
