@@ -6,24 +6,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import elsys.project.R;
 import elsys.project.Workflow;
-import elsys.project.WorkflowAdapter;
 import elsys.project.WorkflowsList;
 import elsys.project.activities.MainActivity;
 import elsys.project.activities.edit_workflow.modules.Module;
