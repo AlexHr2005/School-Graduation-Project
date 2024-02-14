@@ -9,6 +9,8 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
@@ -91,69 +93,79 @@ public class Workflow {
         return stringBuilder;
     }
 
-    public void run(Context context) {
-        Log.d("lalala", "hello");
-        try {
-            String encryptedData = EncryptionAndDecryption.encrypt("i am the best!", name);
-            Log.d("encryption", encryptedData);
-            Log.d("encryption", EncryptionAndDecryption.decrypt(encryptedData, name));
-
-
-            Log.d("lalala", "hello");
-            Log.d("lalala", "hello");
-            String[] lines = readFile().toString().split("\n");
-
-            ArrayList<Module> modules = new ArrayList<>(0);
-            Module currModule = null;
-            for (String line : lines) {
-                Log.d("lalala", line);
-                line += "a";
-                String[] lineParts = line.split("[:();]");
-                for (String linePart : lineParts) {
-                    Log.d("lalala", linePart);
-                }
-                Log.d("lalala", lineParts.length + "");
-
-                if (lineParts[0].equals(Module.ALARM)) {
-                    Log.d("lalala", "it is alarm");
-                    int hours = Integer.parseInt(lineParts[2]);
-                    int minutes = Integer.parseInt(lineParts[3]);
-                    if (lineParts[1].equals(Module.BACKGROUND_ALARM)) {
-                        Log.d("lalala", "it is background alarm");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            currModule = new BackgroundAlarmModule(LocalTime.of(hours, minutes));
-                        }
-                    } else if (lineParts[1].equals(Module.SOUND_ALARM)) {
-                        Log.d("lalala", "it is sound alarm");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            currModule = new SoundAlarmModule(LocalTime.of(hours, minutes));
-                        }
-                    }
-                } else if (lineParts[0].equals(Module.SMS)) {
-                    String number = lineParts[2];
-                    String text = lineParts[3];
-                    if (lineParts[1].equals(Module.SEND_SMS)) {
-                        currModule = new SendSmsModule(number, text);
-                    } else if (lineParts[1].equals(Module.RECEIVE_SMS)) {
-                        currModule = new SmsReceiverModule(number, text, context);
-                    }
-                } else if (lineParts[0].equals(Module.PHONE_CALL)) {
-                    if (lineParts[1].equals(Module.RECEIVE_PHONE_CALL)) {
-                        String number = lineParts[2];
-                        currModule = new CallReceiverModule(number);
-                    }
-                }
-                modules.add(currModule);
-                Log.d("lalala", "module added");
-            }
-            BroadcastReceiversManager.registerModuleExecutionReceiver();
-            ModuleToExecute.setModules(modules);
-            Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
-            context.sendBroadcast(executeModule);
-            Log.d("lalala", "end");
-        } catch (Exception e) {
-            e.printStackTrace();
+    public byte[] getBytesFromFile() throws IOException {
+        byte[] fileContent = new byte[(int) workflowFile.length()];
+        try(FileInputStream fis = new FileInputStream(workflowFile)) {
+            Log.d("decryption", fis.read(fileContent) + "");
         }
+        return fileContent;
+    }
+
+    public void run(Context context) {
+        String fileContent = readFile().toString();
+        byte[] encryptedBytes = null;
+        try {
+            encryptedBytes = getBytesFromFile();
+        }
+        catch (Exception e) {
+            Log.d("lalala", e.toString());
+        }
+        String decrypted = new String(CryptoManager.decrypt(encryptedBytes, name));
+        Log.d("decryption", decrypted);
+        String[] lines = decrypted.split("\n");
+
+        ArrayList<Module> modules = new ArrayList<>(0);
+        Module currModule = null;
+        for(String line : lines) {
+            line += "a";
+            String[] lineParts = line.split("[:();]");
+            Log.d("lalala", line);
+            for(String linePart : lineParts) {
+                Log.d("lalala", linePart);
+            }
+            Log.d("lalala", lineParts.length + "");
+
+            if(lineParts[0].equals(Module.ALARM)) {
+                Log.d("lalala", "it is alarm");
+                int hours = Integer.parseInt(lineParts[2]);
+                int minutes = Integer.parseInt(lineParts[3]);
+                if(lineParts[1].equals(Module.BACKGROUND_ALARM)) {
+                    Log.d("lalala", "it is background alarm");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        currModule = new BackgroundAlarmModule(LocalTime.of(hours, minutes));
+                    }
+                }
+                else if(lineParts[1].equals(Module.SOUND_ALARM)) {
+                    Log.d("lalala", "it is sound alarm");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        currModule = new SoundAlarmModule(LocalTime.of(hours, minutes));
+                    }
+                }
+            }
+            else if(lineParts[0].equals(Module.SMS)) {
+                String number = lineParts[2];
+                String text = lineParts[3];
+                if(lineParts[1].equals(Module.SEND_SMS)) {
+                    currModule = new SendSmsModule(number, text);
+                }
+                else if(lineParts[1].equals(Module.RECEIVE_SMS)) {
+                    currModule = new SmsReceiverModule(number, text, context);
+                }
+            }
+            else if(lineParts[0].equals(Module.PHONE_CALL)) {
+                if(lineParts[1].equals(Module.RECEIVE_PHONE_CALL)) {
+                    String number = lineParts[2];
+                    currModule = new CallReceiverModule(number);
+                }
+            }
+            modules.add(currModule);
+            Log.d("lalala", "module added");
+        }
+        BroadcastReceiversManager.registerModuleExecutionReceiver();
+        ModuleToExecute.setModules(modules);
+        Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
+        context.sendBroadcast(executeModule);
+        Log.d("lalala", "end");
     }
 
     public void stop(Context context) {

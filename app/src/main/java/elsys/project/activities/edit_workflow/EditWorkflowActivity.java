@@ -6,21 +6,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import elsys.project.CryptoManager;
 import elsys.project.R;
 import elsys.project.Workflow;
+import elsys.project.WorkflowAdapter;
 import elsys.project.WorkflowsList;
 import elsys.project.activities.MainActivity;
 import elsys.project.activities.edit_workflow.modules.Module;
+import elsys.project.modules.phone_calls.CallReceiver;
 
 public class EditWorkflowActivity extends AppCompatActivity {
     public static ArrayList<Module> modules;
@@ -60,7 +69,9 @@ public class EditWorkflowActivity extends AppCompatActivity {
     public void saveWorkflowToFile(View view) throws IOException {
         Workflow workflow = WorkflowsList.getWorkflowByName(workflowName);
         File workflowFile = workflow.getWorkflowFile();
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(workflowFile, true));
+        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(workflowFile, true));
+
+        String fileContent = "";
 
         for(int i = 0; i < modules.size(); i++) {
             Module module = modules.get(i);
@@ -73,13 +84,22 @@ public class EditWorkflowActivity extends AppCompatActivity {
                 }
             }
             line += ")";
-            bufferedWriter.write(line);
+            //bufferedWriter.write(line);
+            fileContent += line;
             if(i != modules.size() - 1) {
-                bufferedWriter.newLine();
+                fileContent += "\n";
+                //bufferedWriter.newLine();
             }
         }
-        bufferedWriter.close();
+        byte[] encrypted = CryptoManager.encrypt(workflowName, fileContent);
+        Log.d("encryption", fileContent);
+        //Log.d("encryption", encrypted);
 
+        try (FileOutputStream outputStream = new FileOutputStream(workflowFile)) {
+            outputStream.write(encrypted);
+        }
+
+        //bufferedWriter.close();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
