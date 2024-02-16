@@ -32,6 +32,7 @@ public class App extends Application {
 
         WorkflowsList.setWorkflowsDir(workflowsDir);
         WorkflowsList.loadWorkflows(this);
+        WorkflowsList.setContext(this);
 
         Module.setContext(getApplicationContext());
         BroadcastReceiversManager.setContext(getApplicationContext());

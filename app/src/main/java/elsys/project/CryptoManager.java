@@ -75,8 +75,11 @@ public class CryptoManager {
         }
     }
 
-    private static SecretKey createKey(String alias) {
-        return null;
+    public static void deleteKey(String alias) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {
+        KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+        keyStore.load(null);
+
+        keyStore.deleteEntry(alias);
     }
 
 }

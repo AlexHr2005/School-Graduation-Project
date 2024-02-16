@@ -2,11 +2,13 @@ package elsys.project;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class WorkflowsList {
+    private static Context context;
     private static File workflowsDir;
     private static ArrayList<Workflow> workflows = new ArrayList<>(0);
 
@@ -54,6 +56,11 @@ public class WorkflowsList {
     }
 
     public static boolean deleteWorkflow(String workflowName) {
+        try {
+            CryptoManager.deleteKey(workflowName);
+        } catch (Exception e) {
+            Toast.makeText(context, "There was a problem with deleting the file.", Toast.LENGTH_SHORT).show();
+        }
         return new Workflow(workflowName).getWorkflowFile().delete();
     }
 
@@ -82,4 +89,7 @@ public class WorkflowsList {
         return workflows.size();
     }
 
+    public static void setContext(Context context) {
+        WorkflowsList.context = context;
+    }
 }

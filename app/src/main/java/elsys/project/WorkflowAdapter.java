@@ -138,9 +138,6 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
                 return true;
             }
             else if (R.id.rename_option == item_id) {
-                //TODO Handle option
-                // must use Material Design dialogs
-
                 final EditText input = new EditText(context);
                 input.setText(holder.workflowNameView.getText());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
