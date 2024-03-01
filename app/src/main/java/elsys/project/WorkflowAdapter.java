@@ -3,29 +3,24 @@ package elsys.project;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.dialog.MaterialDialogs;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textview.MaterialTextView;
-
-import java.io.File;
-import java.util.List;
 
 public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.WorkflowViewHolder> {
     public Resources resources;
@@ -48,6 +43,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
     public void onBindViewHolder(@NonNull WorkflowViewHolder holder, int position) {
         Log.d("worflow items count", ""+ getItemCount());
         Workflow workflow = WorkflowsList.getWorkflowByPosition(position);
+        Log.d("lalala", workflow.getName());
         if(workflow.isRunning()) {
             holder.startOrStopButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.stop_workflow_icon));
         }
@@ -126,15 +122,11 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
             if(R.id.delete_option == item_id) {
                 String workflowName = holder.workflowNameView.getText().toString();
-                boolean isDeleted = WorkflowsList.deleteWorkflow(workflowName);
+                boolean isDeleted = WorkflowsList.deleteWorkflowFile(workflowName);
                 if(isDeleted) {
                     WorkflowsList.removeFromList(workflowName);
                     notifyItemRemoved(holder.getAdapterPosition());
                 }
-                return true;
-            }
-            else if (R.id.edit_option == item_id) {
-                //TODO Handle option
                 return true;
             }
             else if (R.id.rename_option == item_id) {
@@ -142,7 +134,7 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
                 input.setText(holder.workflowNameView.getText());
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
 
-                new MaterialAlertDialogBuilder(context)
+                AlertDialog dialog = new MaterialAlertDialogBuilder(context)
                         .setTitle(R.string.workflow_name_dialog_title)
                         .setView(input)
                         .setNeutralButton(R.string.workflow_name_dialog_cancel, new DialogInterface.OnClickListener() {
@@ -162,6 +154,28 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
                             }
                         })
                         .show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                input.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if(input.getText().toString().trim().isEmpty()) {
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                        }
+                        else {
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
                 return true;
             }
             else return false;

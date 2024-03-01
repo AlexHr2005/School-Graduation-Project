@@ -4,15 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.Calendar;
-
 import elsys.project.R;
-import elsys.project.activities.edit_workflow.modules.Module;
-import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
+import elsys.project.activities.build_workflow.modules.Module;
 import elsys.project.modules.alarms.Alarm;
 import elsys.project.modules.alarms.AlarmService;
 
@@ -55,7 +51,6 @@ public class AlarmRingActivity extends AppCompatActivity {
     public static void cancelSnoozedAlarm() {
         if(snoozeAlarm != null) {
             snoozeAlarm.cancel();
-            Log.d("lalala", "snoozed alarm stopped");
         }
     }
 }

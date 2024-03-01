@@ -1,4 +1,4 @@
-package elsys.project.activities.edit_workflow;
+package elsys.project.activities.build_workflow;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import elsys.project.R;
-import elsys.project.activities.edit_workflow.modules.Module;
+import elsys.project.activities.build_workflow.modules.Module;
 
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder> {
     @NonNull
@@ -31,9 +31,14 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
 
         ArrayList<String> optionsValues = module.getOptionsValues();
 
-        for (int i = 0; i < optionsValues.size(); i++) {
-            String value = optionsValues.get(i);
-            holder.moduleOptions.get(i).setText(value);
+        for (int i = 0; i < holder.moduleOptions.size(); i++) {
+            if(i >= optionsValues.size()) {
+                holder.moduleOptions.get(i).setVisibility(View.GONE);
+            }
+            else {
+                String value = optionsValues.get(i);
+                holder.moduleOptions.get(i).setText(value);
+            }
         }
 
         holder.deleteModule.setOnClickListener(new View.OnClickListener() {

@@ -1,4 +1,4 @@
-package elsys.project.activities.edit_workflow.modules;
+package elsys.project.activities.build_workflow.modules;
 
 import java.time.LocalTime;
 

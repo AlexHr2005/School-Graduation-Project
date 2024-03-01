@@ -2,30 +2,24 @@ package elsys.project;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import javax.crypto.Cipher;
-
-import elsys.project.activities.edit_workflow.modules.BackgroundAlarmModule;
-import elsys.project.activities.edit_workflow.modules.CallReceiverModule;
-import elsys.project.activities.edit_workflow.modules.Module;
-import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
-import elsys.project.activities.edit_workflow.modules.SendSmsModule;
-import elsys.project.activities.edit_workflow.modules.SmsReceiverModule;
-import elsys.project.activities.edit_workflow.modules.SoundAlarmModule;
+import elsys.project.activities.build_workflow.modules.SilentAlarmModule;
+import elsys.project.activities.build_workflow.modules.CallReceiverModule;
+import elsys.project.activities.build_workflow.modules.Module;
+import elsys.project.activities.build_workflow.modules.ModuleExecutionReceiver;
+import elsys.project.activities.build_workflow.modules.SendSmsModule;
+import elsys.project.activities.build_workflow.modules.SmsReceiverModule;
+import elsys.project.activities.build_workflow.modules.SoundAlarmModule;
 
 public class Workflow {
     private String name;
@@ -68,32 +62,8 @@ public class Workflow {
         return name.equals(workflow.name);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
 
-    public StringBuilder readFile() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try {
-            FileInputStream fileInputStream = new FileInputStream(workflowFile);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append(System.lineSeparator());
-            }
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return stringBuilder;
-    }
-
-    public byte[] getBytesFromFile() throws IOException {
+    private byte[] getBytesFromFile() throws IOException {
         byte[] fileContent = new byte[(int) workflowFile.length()];
         try(FileInputStream fis = new FileInputStream(workflowFile)) {
             Log.d("decryption", fis.read(fileContent) + "");
@@ -102,13 +72,12 @@ public class Workflow {
     }
 
     public void run(Context context) {
-        String fileContent = readFile().toString();
         byte[] encryptedBytes = null;
         try {
             encryptedBytes = getBytesFromFile();
         }
         catch (Exception e) {
-            Log.d("lalala", e.toString());
+            Log.d("workflow running", e.toString());
         }
         String decrypted = new String(CryptoManager.decrypt(encryptedBytes, name));
         Log.d("decryption", decrypted);
@@ -129,17 +98,13 @@ public class Workflow {
                 Log.d("lalala", "it is alarm");
                 int hours = Integer.parseInt(lineParts[2]);
                 int minutes = Integer.parseInt(lineParts[3]);
-                if(lineParts[1].equals(Module.BACKGROUND_ALARM)) {
+                if(lineParts[1].equals(Module.SILENT_ALARM)) {
                     Log.d("lalala", "it is background alarm");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        currModule = new BackgroundAlarmModule(LocalTime.of(hours, minutes));
-                    }
+                    currModule = new SilentAlarmModule(LocalTime.of(hours, minutes));
                 }
                 else if(lineParts[1].equals(Module.SOUND_ALARM)) {
                     Log.d("lalala", "it is sound alarm");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        currModule = new SoundAlarmModule(LocalTime.of(hours, minutes));
-                    }
+                    currModule = new SoundAlarmModule(LocalTime.of(hours, minutes));
                 }
             }
             else if(lineParts[0].equals(Module.SMS)) {
@@ -149,7 +114,7 @@ public class Workflow {
                     currModule = new SendSmsModule(number, text);
                 }
                 else if(lineParts[1].equals(Module.RECEIVE_SMS)) {
-                    currModule = new SmsReceiverModule(number, text, context);
+                    currModule = new SmsReceiverModule(number, text);
                 }
             }
             else if(lineParts[0].equals(Module.PHONE_CALL)) {
@@ -162,7 +127,7 @@ public class Workflow {
             Log.d("lalala", "module added");
         }
         BroadcastReceiversManager.registerModuleExecutionReceiver();
-        ModuleToExecute.setModules(modules);
+        ModuleExecutionReceiver.setModules(modules);
         Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
         context.sendBroadcast(executeModule);
         Log.d("lalala", "end");

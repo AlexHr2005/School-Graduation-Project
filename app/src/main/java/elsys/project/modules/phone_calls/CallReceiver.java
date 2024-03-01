@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
-
 public class CallReceiver extends BroadcastReceiver {
     //variable that says whether the user has a unanswered call
     private boolean unansweredCall = false;

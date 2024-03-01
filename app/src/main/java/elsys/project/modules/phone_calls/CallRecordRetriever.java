@@ -11,8 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CallRecordRetriever {
-    public static final int MISSED = CallLog.Calls.MISSED_TYPE;
-    public static final int REJECTED = CallLog.Calls.REJECTED_TYPE;
 
 
     public static String returnLastCall(Context context) {
@@ -24,11 +22,12 @@ public class CallRecordRetriever {
         };
 
         String[] selectionArgs = {
-                String.valueOf(MISSED),
-                String.valueOf(REJECTED)
+                String.valueOf(CallLog.Calls.MISSED_TYPE),
+                String.valueOf(CallLog.Calls.REJECTED_TYPE)
         };
 
-        String selection = CallLog.Calls.TYPE + " = ? OR " + CallLog.Calls.TYPE + " = ?";
+        String selection = CallLog.Calls.TYPE + " = ? OR " +
+                CallLog.Calls.TYPE + " = ?";
 
         Cursor cursor = contentResolver.query(CallLog.Calls.CONTENT_URI, projection, selection, selectionArgs,
                 CallLog.Calls.DATE + " DESC");

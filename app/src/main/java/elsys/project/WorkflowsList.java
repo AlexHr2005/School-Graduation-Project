@@ -1,7 +1,6 @@
 package elsys.project;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -36,7 +35,7 @@ public class WorkflowsList {
         return workflowsDir;
     }
 
-    public static void loadWorkflows(Context context) {
+    public static void loadWorkflowsToList(Context context) {
         workflows.clear();
         File filesDir = context.getFilesDir();
         File workflowsDir = new File(filesDir, String.valueOf(R.string.workflows_dir));
@@ -50,12 +49,7 @@ public class WorkflowsList {
 
     }
 
-    public static void addWorkflow(File file) {
-        Workflow workflow = new Workflow(file.getName());
-        workflows.add(workflow);
-    }
-
-    public static boolean deleteWorkflow(String workflowName) {
+    public static boolean deleteWorkflowFile(String workflowName) {
         try {
             CryptoManager.deleteKey(workflowName);
         } catch (Exception e) {
@@ -79,10 +73,6 @@ public class WorkflowsList {
             toBeRenamed.setWorkflowFile(targetFile);
         }
         return isRenamed;
-    }
-
-    public static StringBuilder getWorkflowContent(String workflowName) {
-        return getWorkflowByName(workflowName).readFile();
     }
 
     public static int size() {

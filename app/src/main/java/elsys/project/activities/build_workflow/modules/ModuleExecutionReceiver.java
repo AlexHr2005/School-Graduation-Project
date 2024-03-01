@@ -1,4 +1,4 @@
-package elsys.project.activities.edit_workflow.modules;
+package elsys.project.activities.build_workflow.modules;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -46,6 +46,7 @@ public class ModuleExecutionReceiver extends BroadcastReceiver {
             Log.d("lalala", "STOP WORKFLOW");
             modules.get(moduleToExecute).stopExecution();
             BroadcastReceiversManager.unregisterModuleExecutionReceiver();
+            Log.d("lalala", "WORKFLOW STOPPED");
         }
     }
 

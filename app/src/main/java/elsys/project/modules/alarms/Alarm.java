@@ -24,7 +24,7 @@ public class Alarm {
     public void schedule(Context context, String alarmType) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Log.d("lalala", alarmType + " written in the Alarm class");
-        Intent intent = new Intent("com.example.myapp.CUSTOM_ACTION");
+        Intent intent = new Intent("com.example.myapp.FIRE_ALARM");
         intent.putExtra("Alarm type", alarmType);
 
         alarmPendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE);

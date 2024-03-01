@@ -3,16 +3,11 @@ package elsys.project;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 
 import java.io.File;
-import java.io.IOException;
 
-import elsys.project.R;
-import elsys.project.WorkflowsList;
-import elsys.project.activities.edit_workflow.modules.Module;
+import elsys.project.activities.build_workflow.modules.Module;
 
 public class App extends Application {
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
@@ -31,7 +26,7 @@ public class App extends Application {
         }
 
         WorkflowsList.setWorkflowsDir(workflowsDir);
-        WorkflowsList.loadWorkflows(this);
+        WorkflowsList.loadWorkflowsToList(this);
         WorkflowsList.setContext(this);
 
         Module.setContext(getApplicationContext());

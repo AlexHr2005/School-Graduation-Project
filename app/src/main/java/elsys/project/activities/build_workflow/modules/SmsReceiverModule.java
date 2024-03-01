@@ -1,13 +1,10 @@
-package elsys.project.activities.edit_workflow.modules;
+package elsys.project.activities.build_workflow.modules;
 
-import android.content.Context;
-import android.content.IntentFilter;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 import elsys.project.BroadcastReceiversManager;
-import elsys.project.modules.sms.SmsReceiver;
 
 public class SmsReceiverModule extends SmsModule{
     public String senderNumber;

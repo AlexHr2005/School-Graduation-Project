@@ -1,8 +1,6 @@
-package elsys.project.activities.edit_workflow.modules;
+package elsys.project.activities.build_workflow.modules;
 
 import java.util.ArrayList;
-
-import elsys.project.activities.edit_workflow.modules.Module;
 
 public abstract class SmsModule extends Module {
     public String text;

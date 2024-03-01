@@ -2,6 +2,7 @@ package elsys.project;
 
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyInfo;
 import android.security.keystore.KeyProperties;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -41,6 +43,7 @@ public class CryptoManager {
                     .setUserAuthenticationRequired(false)
                     .setRandomizedEncryptionRequired(false);
 
+
             keyPairGenerator.initialize(builder.build());
             KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
@@ -64,6 +67,8 @@ public class CryptoManager {
             Log.d("decryption", encrypted.length + "");
 
             PrivateKey privateKey = (PrivateKey) keyStore.getKey(alias, null);
+            KeyFactory keyFactory = KeyFactory.getInstance(privateKey.getAlgorithm(),ANDROID_KEY_STORE);
+            Log.d("decryption", keyFactory.getKeySpec(privateKey, KeyInfo.class).isInsideSecureHardware() + "");
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             return cipher.doFinal(encrypted);

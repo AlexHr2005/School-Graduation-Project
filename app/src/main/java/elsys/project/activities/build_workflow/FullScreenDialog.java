@@ -1,4 +1,4 @@
-package elsys.project.activities.edit_workflow;
+package elsys.project.activities.build_workflow;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,12 +28,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import elsys.project.R;
-import elsys.project.activities.edit_workflow.modules.SilentAlarmModule;
-import elsys.project.activities.edit_workflow.modules.CallReceiverModule;
-import elsys.project.activities.edit_workflow.modules.Module;
-import elsys.project.activities.edit_workflow.modules.SendSmsModule;
-import elsys.project.activities.edit_workflow.modules.SmsReceiverModule;
-import elsys.project.activities.edit_workflow.modules.SoundAlarmModule;
+import elsys.project.activities.build_workflow.modules.SilentAlarmModule;
+import elsys.project.activities.build_workflow.modules.CallReceiverModule;
+import elsys.project.activities.build_workflow.modules.Module;
+import elsys.project.activities.build_workflow.modules.SendSmsModule;
+import elsys.project.activities.build_workflow.modules.SmsReceiverModule;
+import elsys.project.activities.build_workflow.modules.SoundAlarmModule;
 
 public class FullScreenDialog extends DialogFragment {
     private FloatingActionButton createModule;
@@ -90,6 +91,11 @@ public class FullScreenDialog extends DialogFragment {
         ArrayList<TextInputEditText> optionsInputs = new ArrayList<>(0);
         optionsInputs.add(view.findViewById(R.id.moduleOption1Input));
         optionsInputs.add(view.findViewById(R.id.moduleOption2Input));
+
+        for(TextInputLayout optionLayout : optionsLayouts) {
+            optionLayout.setEnabled(false);
+            optionLayout.setHint("");
+        }
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,15 +108,18 @@ public class FullScreenDialog extends DialogFragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(pickedSubhead.equals(Module.SEND_SMS) &&
+                        (optionsInputs.get(0).getText().toString().isEmpty() || optionsInputs.get(1).getText().toString().isEmpty())) {
+                    Toast.makeText(container.getContext(), "You have to enter both fields", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Module newModule = null;
 
                 Log.d("module items", "1");
 
                 if(pickedTitle.equals(Module.ALARM)) {
-                    LocalTime timePickerValue = null;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                        timePickerValue = LocalTime.of(materialTimePicker.getHour(), materialTimePicker.getMinute());
-                    }
+                    LocalTime timePickerValue;
+                    timePickerValue = LocalTime.of(materialTimePicker.getHour(), materialTimePicker.getMinute());
                     if(pickedSubhead.equals(Module.SILENT_ALARM)) {
                         newModule = new SilentAlarmModule(timePickerValue);
                     }
@@ -121,7 +130,7 @@ public class FullScreenDialog extends DialogFragment {
                 }
                 else if(pickedTitle.equals(Module.SMS)) {
                     if(pickedSubhead.equals(Module.SEND_SMS)) {
-                        newModule = new SendSmsModule(optionsInputs.get(0).getText().toString(), optionsInputs.get(1).getText().toString());
+                        newModule = new SendSmsModule( optionsInputs.get(0).getText().toString(), optionsInputs.get(1).getText().toString());
                     }
                     else if(pickedSubhead.equals(Module.RECEIVE_SMS)) {
                         newModule = new SmsReceiverModule(optionsInputs.get(0).getText().toString(), optionsInputs.get(1).getText().toString());

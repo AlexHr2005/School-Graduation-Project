@@ -1,14 +1,10 @@
 package elsys.project;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.Build;
 
-import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
+import elsys.project.activities.build_workflow.modules.ModuleExecutionReceiver;
 import elsys.project.modules.alarms.AlarmReceiver;
 import elsys.project.modules.phone_calls.CallReceiver;
 import elsys.project.modules.sms.SmsReceiver;
@@ -17,14 +13,15 @@ public class BroadcastReceiversManager {
     private static BroadcastReceiver smsReceiver = null;
     private static BroadcastReceiver callReceiver = null;
     private static BroadcastReceiver alarmReceiver = null;
+    // it is registered in the start of the workflow’s execution
+    // and is called when a new module must be executed
     private static BroadcastReceiver moduleExecutionReceiver = null;
     private static Context context;
 
     public static void registerSmsReceiver(String number, String text) {
-        SmsReceiver newSmsReceiver = new SmsReceiver(number, text);
+        smsReceiver = new SmsReceiver(number, text);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-        context.registerReceiver(newSmsReceiver, intentFilter);
-        smsReceiver = newSmsReceiver;
+        context.registerReceiver(smsReceiver, intentFilter);
     }
 
     public static void unregisterSmsReceiver() {
@@ -33,10 +30,9 @@ public class BroadcastReceiversManager {
     }
 
     public static void registerCallReceiver(String number) {
-        CallReceiver newCallReceiver = new CallReceiver(number);
+        callReceiver = new CallReceiver(number);
         IntentFilter intentFilter = new IntentFilter("android.intent.action.PHONE_STATE");
-        context.registerReceiver(newCallReceiver, intentFilter);
-        callReceiver = newCallReceiver;
+        context.registerReceiver(callReceiver, intentFilter);
     }
 
     public static void unregisterCallReceiver() {
@@ -45,23 +41,22 @@ public class BroadcastReceiversManager {
     }
 
     public static void registerAlarmReceiver() {
-        AlarmReceiver newAlarmReceiver = new AlarmReceiver();
-        context.registerReceiver(newAlarmReceiver, new IntentFilter("com.example.myapp.CUSTOM_ACTION"));
-        alarmReceiver = newAlarmReceiver;
+        alarmReceiver = new AlarmReceiver();
+        context.registerReceiver(alarmReceiver, new IntentFilter("com.example.myapp.FIRE_ALARM"));
     }
 
-    public static void unRegisterAlarmReceiver() {
+    public static void unregisterAlarmReceiver() {
         context.unregisterReceiver(alarmReceiver);
         alarmReceiver = null;
     }
 
     public static void registerModuleExecutionReceiver() {
-        ModuleToExecute moduleToExecute = new ModuleToExecute();
+        ModuleExecutionReceiver newModuleExecutionReceiver = new ModuleExecutionReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("project.elsys.STOP_WORKFLOW");
         intentFilter.addAction("project.elsys.EXECUTE_MODULE");
-        context.registerReceiver(moduleToExecute, intentFilter);
-        moduleExecutionReceiver = moduleToExecute;
+        context.registerReceiver(newModuleExecutionReceiver, intentFilter);
+        moduleExecutionReceiver = newModuleExecutionReceiver;
     }
 
     public static void unregisterModuleExecutionReceiver() {

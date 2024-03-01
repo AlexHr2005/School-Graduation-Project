@@ -45,7 +45,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moduleTitleLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="381dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="58dp"
         android:layout_marginTop="124dp"
         android:hint="Module Type"
@@ -66,7 +68,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moduleSubheadLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="381dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="58dp"
         android:layout_marginTop="52dp"
         android:hint="Module subtype"
@@ -85,7 +89,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moduleOption1Layout"
-        android:layout_width="381dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="58dp"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +108,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/moduleOption2Layout"
-        android:layout_width="381dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="58dp"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"

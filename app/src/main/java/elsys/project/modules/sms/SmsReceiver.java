@@ -3,16 +3,13 @@ package elsys.project.modules.sms;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-import elsys.project.activities.edit_workflow.modules.ModuleToExecute;
-
 public class SmsReceiver extends BroadcastReceiver {
 
-    public static final String pdu_type = "pdus";
+    public static final String pdus = "pdus";
     private String number;
     private String text;
 
@@ -27,12 +24,19 @@ public class SmsReceiver extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         String format = bundle.getString("format");
 
-        Object[] pdus = (Object[]) bundle.get(pdu_type);
+        // a message might be divided into multiple PDUs
+        Object[] pdus = (Object[]) bundle.get(SmsReceiver.pdus);
+        Log.d("lalala", bundle.get(SmsReceiver.pdus).getClass().toString());
         SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdus[0], format);
-        Log.d("lalala", pdus.length + " pdus");
+        String sender = smsMessage.getOriginatingAddress();
 
-        String sender = smsMessage.getDisplayOriginatingAddress();
-        String messageBody = smsMessage.getMessageBody();
+        String messageBody = "";
+        for(Object pdu : pdus) {
+            SmsMessage currSmsMessage = SmsMessage.createFromPdu(
+                    (byte[]) pdu, format);
+            messageBody += currSmsMessage.getMessageBody();
+        }
+        Log.d("lalala", pdus.length + " pdus");
 
         Log.d("lalala", sender + ": " + messageBody);
 

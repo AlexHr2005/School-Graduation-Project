@@ -12,7 +12,7 @@
         <item>PHONE CALL</item>
     </array>
     <array name="alarm_subheads">
-        <item>background</item>
+        <item>silent</item>
         <item>sound</item>
     </array>
     <array name="SMS_subheads">
@@ -24,15 +24,16 @@
     </array>
 
     <array name="background_alarm_options">
-        <item>Repetition time</item>
+        <item>Notification Text</item>
     </array>
 
     <array name="sound_alarm_options">
-        <item>Repetition time</item>
+        <item>Notification Title</item>
+        <item>Notification Text</item>
     </array>
     
     <array name="SMS_send_options">
-        <item>Target(s)</item>
+        <item>Target</item>
         <item>Text</item>
     </array>
     
