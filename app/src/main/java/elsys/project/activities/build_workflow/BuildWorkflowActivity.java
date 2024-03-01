@@ -6,32 +6,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import elsys.project.CryptoManager;
 import elsys.project.R;
 import elsys.project.Workflow;
-import elsys.project.WorkflowAdapter;
 import elsys.project.WorkflowsList;
 import elsys.project.activities.MainActivity;
 import elsys.project.activities.edit_workflow.modules.Module;
-import elsys.project.modules.phone_calls.CallReceiver;
 
-public class EditWorkflowActivity extends AppCompatActivity {
+public class BuildWorkflowActivity extends AppCompatActivity {
     public static ArrayList<Module> modules;
     public RecyclerView recyclerView;
     public static ModuleAdapter adapter;
@@ -63,13 +54,14 @@ public class EditWorkflowActivity extends AppCompatActivity {
 
     public void cancelActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        WorkflowsList.deleteWorkflow(workflowName);
+        WorkflowsList.loadWorkflows(this);
         startActivity(intent);
     }
 
     public void saveWorkflowToFile(View view) throws IOException {
         Workflow workflow = WorkflowsList.getWorkflowByName(workflowName);
         File workflowFile = workflow.getWorkflowFile();
-        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(workflowFile, true));
 
         String fileContent = "";
 

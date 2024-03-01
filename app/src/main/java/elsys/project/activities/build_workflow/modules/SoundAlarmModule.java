@@ -6,6 +6,6 @@ public class SoundAlarmModule extends AlarmModule{
 
     public SoundAlarmModule(LocalTime repetitionTime) {
         super(repetitionTime);
-        subhead = Module.SOUND_ALARM;
+        subhead = SOUND_ALARM;
     }
 }

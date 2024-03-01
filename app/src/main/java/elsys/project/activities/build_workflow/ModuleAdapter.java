@@ -1,26 +1,18 @@
 package elsys.project.activities.edit_workflow;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import elsys.project.R;
 import elsys.project.activities.edit_workflow.modules.Module;
-import elsys.project.activities.edit_workflow.modules.SendSmsModule;
-import elsys.project.activities.edit_workflow.modules.SmsModule;
-import elsys.project.activities.edit_workflow.modules.SmsReceiverModule;
 
 public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder> {
     @NonNull
@@ -32,7 +24,7 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
 
     @Override
     public void onBindViewHolder(@NonNull ModuleViewHolder holder, int position) {
-        Module module = EditWorkflowActivity.modules.get(position);
+        Module module = BuildWorkflowActivity.modules.get(position);
 
         holder.moduleTitle.setText(module.title);
         holder.moduleSubhead.setText(module.subhead);
@@ -47,15 +39,15 @@ public class ModuleAdapter extends RecyclerView.Adapter<ModuleAdapter.ModuleView
         holder.deleteModule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditWorkflowActivity.modules.remove(holder.getAdapterPosition());
-                EditWorkflowActivity.adapter.notifyItemRemoved(holder.getAdapterPosition());
+                BuildWorkflowActivity.modules.remove(holder.getAdapterPosition());
+                BuildWorkflowActivity.adapter.notifyItemRemoved(holder.getAdapterPosition());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return EditWorkflowActivity.modules.size();
+        return BuildWorkflowActivity.modules.size();
     }
 
     public static class ModuleViewHolder extends RecyclerView.ViewHolder {

@@ -11,14 +11,6 @@ import elsys.project.modules.sms.SmsReceiver;
 
 public class SmsReceiverModule extends SmsModule{
     public String senderNumber;
-    public Context context;
-
-    public SmsReceiverModule(String senderNumber, String text, Context context) {
-        super(text);
-        this.senderNumber = senderNumber;
-        subhead = Module.RECEIVE_SMS;
-        this.context = context;
-    }
 
     public SmsReceiverModule(String senderNumber, String text) {
         super(text);

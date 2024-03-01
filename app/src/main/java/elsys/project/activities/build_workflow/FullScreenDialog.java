@@ -3,8 +3,6 @@ package elsys.project.activities.edit_workflow;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +27,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import elsys.project.R;
-import elsys.project.activities.edit_workflow.modules.BackgroundAlarmModule;
-import elsys.project.activities.edit_workflow.modules.CallLogModule;
+import elsys.project.activities.edit_workflow.modules.SilentAlarmModule;
 import elsys.project.activities.edit_workflow.modules.CallReceiverModule;
 import elsys.project.activities.edit_workflow.modules.Module;
 import elsys.project.activities.edit_workflow.modules.SendSmsModule;
@@ -114,8 +111,8 @@ public class FullScreenDialog extends DialogFragment {
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                         timePickerValue = LocalTime.of(materialTimePicker.getHour(), materialTimePicker.getMinute());
                     }
-                    if(pickedSubhead.equals(Module.BACKGROUND_ALARM)) {
-                        newModule = new BackgroundAlarmModule(timePickerValue);
+                    if(pickedSubhead.equals(Module.SILENT_ALARM)) {
+                        newModule = new SilentAlarmModule(timePickerValue);
                     }
                     else if(pickedSubhead.equals(Module.SOUND_ALARM)) {
                         newModule = new SoundAlarmModule(timePickerValue);
@@ -137,8 +134,8 @@ public class FullScreenDialog extends DialogFragment {
                     }
                     Log.d("module items", "4");
                 }
-                EditWorkflowActivity.modules.add(newModule);
-                EditWorkflowActivity.adapter.notifyDataSetChanged();
+                BuildWorkflowActivity.modules.add(newModule);
+                BuildWorkflowActivity.adapter.notifyDataSetChanged();
                 Log.d("module items", "5");
                 createModule.setVisibility(View.VISIBLE);
                 Log.d("module items", "6");
@@ -205,7 +202,7 @@ public class FullScreenDialog extends DialogFragment {
                 String[] optionsHints = null;
 
                 if(pickedTitle.equals(Module.ALARM)) {
-                    if(pickedSubhead.equals(Module.BACKGROUND_ALARM)) {
+                    if(pickedSubhead.equals(Module.SILENT_ALARM)) {
                         optionsHints = getResources().getStringArray(R.array.background_alarm_options);
                     }
                     else if(pickedSubhead.equals(Module.SOUND_ALARM)) {

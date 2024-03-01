@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import elsys.project.BroadcastReceiversManager;
 import elsys.project.activities.AlarmRingActivity;
-import elsys.project.activities.edit_workflow.modules.Module;
 import elsys.project.modules.alarms.Alarm;
 
 public abstract class AlarmModule extends Module {
@@ -29,9 +28,8 @@ public abstract class AlarmModule extends Module {
     @Override
     public void execute() {
         BroadcastReceiversManager.registerAlarmReceiver();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            alarm = new Alarm(repetitionTime.getHour(), repetitionTime.getMinute());
-        }
+        // bottom line requires API >= 26
+        alarm = new Alarm(repetitionTime.getHour(), repetitionTime.getMinute());
         Log.d("lalala", "alarm to be scheduled for " + subhead);
         Alarm.requestCode++;
         alarm.schedule(context, subhead);
@@ -39,7 +37,7 @@ public abstract class AlarmModule extends Module {
 
     @Override
     public void stopExecution() {
-        BroadcastReceiversManager.unRegisterAlarmReceiver();
+        BroadcastReceiversManager.unregisterAlarmReceiver();
         alarm.cancel();
         AlarmRingActivity.cancelSnoozedAlarm();
         Log.d("lalala", "alarm module stopped");

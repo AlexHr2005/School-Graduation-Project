@@ -15,7 +15,7 @@ public abstract class SmsModule extends Module {
     }
 
     public SmsModule(String text) {
-        title = Module.SMS;
+        title = SMS;
         this.text = text;
     }
 

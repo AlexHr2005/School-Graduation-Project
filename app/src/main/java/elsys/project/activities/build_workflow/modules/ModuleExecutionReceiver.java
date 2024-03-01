@@ -6,27 +6,26 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import elsys.project.BroadcastReceiversManager;
 
-public class ModuleToExecute extends BroadcastReceiver {
+public class ModuleExecutionReceiver extends BroadcastReceiver {
     private static ArrayList<Module> modules;
     private static int moduleToExecute;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals("project.elsys.EXECUTE_MODULE")) {
-            String command = intent.getStringExtra("command");
-            if(command != null) {
-                if(command.equals("unregister smsReceiver")) {
+            String extra = intent.getStringExtra("command");
+            if(extra != null) {
+                if(extra.equals("unregister smsReceiver")) {
                     BroadcastReceiversManager.unregisterSmsReceiver();
                 }
-                else if(command.equals("unregister callReceiver")) {
+                else if(extra.equals("unregister callReceiver")) {
                     BroadcastReceiversManager.unregisterCallReceiver();
                 }
-                else if(command.equals("unregister alarmReceiver")) {
-                    BroadcastReceiversManager.unRegisterAlarmReceiver();
+                else if(extra.equals("unregister alarmReceiver")) {
+                    BroadcastReceiversManager.unregisterAlarmReceiver();
                 }
             }
             moduleToExecute++;
@@ -51,7 +50,7 @@ public class ModuleToExecute extends BroadcastReceiver {
     }
 
     public static void setModules(ArrayList<Module> modules) {
-        ModuleToExecute.modules = modules;
+        ModuleExecutionReceiver.modules = modules;
         moduleToExecute = -1;
     }
 }
