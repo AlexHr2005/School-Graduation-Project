@@ -9,6 +9,9 @@ import elsys.project.modules.sms.SendSMS;
 
 public class SendSmsModule extends SmsModule{
     public String targetNumber;
+    public static final String[] PERMISSIONS_NEEDED = {
+            "android.permission.SEND_SMS"
+    };
 
     public SendSmsModule(String targetNumber, String text) {
         super(text);

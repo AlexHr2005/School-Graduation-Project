@@ -18,6 +18,7 @@ public class ModuleExecutionReceiver extends BroadcastReceiver {
         if(intent.getAction().equals("project.elsys.EXECUTE_MODULE")) {
             String extra = intent.getStringExtra("command");
             if(extra != null) {
+                Log.d("lalala", extra);
                 if(extra.equals("unregister smsReceiver")) {
                     BroadcastReceiversManager.unregisterSmsReceiver();
                 }
@@ -52,6 +53,7 @@ public class ModuleExecutionReceiver extends BroadcastReceiver {
 
     public static void setModules(ArrayList<Module> modules) {
         ModuleExecutionReceiver.modules = modules;
+        Log.d("lalala", "modules number: " + modules.size());
         moduleToExecute = -1;
     }
 }

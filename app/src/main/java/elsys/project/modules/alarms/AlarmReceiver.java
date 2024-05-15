@@ -16,10 +16,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         if(alarmType.equals(Module.SILENT_ALARM)) {
             Log.d("lalala", "Background alarm ringed!");
             Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
-            intent.putExtra("command", "unregister alarmReceiver");
+            executeModule.putExtra("command", "unregister alarmReceiver");
             context.sendBroadcast(executeModule);
         }
         else if(alarmType.equals(Module.SOUND_ALARM)) {
+            Log.d("lalala", "Sound alarm ringed!");
             startAlarmService(context);
         }
     }

@@ -12,6 +12,9 @@ import elsys.project.modules.alarms.Alarm;
 public abstract class AlarmModule extends Module {
     public LocalTime repetitionTime;
     private Alarm alarm = null;
+    public static final String[] PERMISSIONS_NEEDED = {
+            "android.permission.POST_NOTIFICATIONS"
+    };
 
     public AlarmModule(LocalTime repetitionTime) {
         this.repetitionTime = repetitionTime;
@@ -31,7 +34,6 @@ public abstract class AlarmModule extends Module {
         // bottom line requires API >= 26
         alarm = new Alarm(repetitionTime.getHour(), repetitionTime.getMinute());
         Log.d("lalala", "alarm to be scheduled for " + subhead);
-        Alarm.requestCode++;
         alarm.schedule(context, subhead);
     }
 

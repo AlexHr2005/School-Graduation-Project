@@ -8,6 +8,10 @@ import elsys.project.BroadcastReceiversManager;
 
 public class CallReceiverModule extends PhoneCallModule{
     private String callerNumber;
+    public static final String[] PERMISSIONS_NEEDED = {
+            "android.permission.READ_PHONE_STATE",
+            "android.permission.READ_CALL_LOG"
+    };
 
     public CallReceiverModule(String callerNumber) {
         super();

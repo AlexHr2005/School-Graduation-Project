@@ -8,6 +8,10 @@ import elsys.project.BroadcastReceiversManager;
 
 public class SmsReceiverModule extends SmsModule{
     public String senderNumber;
+    public static final String[] PERMISSIONS_NEEDED = {
+        "android.permission.RECEIVE_SMS",
+        "android.permission.READ_SMS"
+    };
 
     public SmsReceiverModule(String senderNumber, String text) {
         super(text);

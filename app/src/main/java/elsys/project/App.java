@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
 
@@ -19,10 +20,14 @@ public class App extends Application {
         createNotificationChannel();
 
         File filesDir = getFilesDir();
-        File workflowsDir = new File(filesDir, String.valueOf(R.string.workflows_dir));
+        File workflowsDir = new File(filesDir, getString(R.string.workflows_dir));
 
         if(!workflowsDir.exists()) {
+            Log.d("lalala", "no dir");
             workflowsDir.mkdirs();
+        }
+        else {
+            Log.d("lalala", "yes dir");
         }
 
         WorkflowsList.setWorkflowsDir(workflowsDir);

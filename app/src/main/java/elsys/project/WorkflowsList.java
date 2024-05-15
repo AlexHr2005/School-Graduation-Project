@@ -38,9 +38,10 @@ public class WorkflowsList {
     public static void loadWorkflowsToList(Context context) {
         workflows.clear();
         File filesDir = context.getFilesDir();
-        File workflowsDir = new File(filesDir, String.valueOf(R.string.workflows_dir));
+        File workflowsDir = new File(filesDir, context.getString(R.string.workflows_dir));
 
         String[] workflowNames = workflowsDir.list();
+
 
         assert workflowNames != null;
         for (String workflowName : workflowNames) {
