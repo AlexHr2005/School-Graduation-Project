@@ -19,10 +19,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -109,10 +111,12 @@ public class FullScreenDialog extends DialogFragment {
         ActivityResultLauncher<String[]> requestPermissionsLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), permissions -> {
                     if(permissions.containsValue(false)) {
-                        Toast.makeText(getContext(), "A permission is denied! Can't go further.", Toast.LENGTH_LONG).show();
+                        AlertDialog alertDialog = new MaterialAlertDialogBuilder(getContext())
+                                .setMessage("You need to provide the application required access" +
+                                        " in order to create wanted module.")
+                                .show();
                     }
                     else {
-                        Toast.makeText(getContext(), "Good to go.", Toast.LENGTH_LONG).show();
                         if(pickedSubhead.equals(Module.SEND_SMS) &&
                                 (optionsInputs.get(0).getText().toString().isEmpty() || optionsInputs.get(1).getText().toString().isEmpty())) {
                             Toast.makeText(container.getContext(), "You have to enter both fields", Toast.LENGTH_LONG).show();
