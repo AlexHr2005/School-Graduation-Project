@@ -3,7 +3,6 @@ package elsys.project;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
-import android.util.Log;
 
 import elsys.project.activities.build_workflow.modules.ModuleExecutionReceiver;
 import elsys.project.modules.alarms.AlarmReceiver;
@@ -23,13 +22,11 @@ public class BroadcastReceiversManager {
         smsReceiver = new SmsReceiver(number, text);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         context.registerReceiver(smsReceiver, intentFilter);
-        Log.d("lalala", "sms receiver registered");
     }
 
     public static void unregisterSmsReceiver() {
         context.unregisterReceiver(smsReceiver);
         smsReceiver = null;
-        Log.d("lalala", "sms receiver unregistered");
     }
 
     public static void registerCallReceiver(String number) {
@@ -46,13 +43,11 @@ public class BroadcastReceiversManager {
     public static void registerAlarmReceiver() {
         alarmReceiver = new AlarmReceiver();
         context.registerReceiver(alarmReceiver, new IntentFilter("com.example.myapp.FIRE_ALARM"));
-        Log.d("lalala", "alarm receiver registered");
     }
 
     public static void unregisterAlarmReceiver() {
         context.unregisterReceiver(alarmReceiver);
         alarmReceiver = null;
-        Log.d("lalala", "alarm receiver unregistered");
     }
 
     public static void registerModuleExecutionReceiver() {

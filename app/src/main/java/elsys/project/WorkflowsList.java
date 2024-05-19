@@ -55,6 +55,7 @@ public class WorkflowsList {
             CryptoManager.deleteKey(workflowName);
         } catch (Exception e) {
             Toast.makeText(context, "There was a problem with deleting the file.", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return new Workflow(workflowName).getWorkflowFile().delete();
     }

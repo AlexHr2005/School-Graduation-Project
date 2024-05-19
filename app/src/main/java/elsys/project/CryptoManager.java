@@ -1,16 +1,18 @@
 package elsys.project;
 
+import android.content.Context;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyInfo;
 import android.security.keystore.KeyProperties;
-import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -21,9 +23,13 @@ import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.security.spec.InvalidKeySpecException;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 public class CryptoManager {
@@ -50,34 +56,22 @@ public class CryptoManager {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             cipher.init(Cipher.ENCRYPT_MODE, keyPair.getPublic());
             byte[] encrypted = cipher.doFinal(plainText.getBytes());
-            Log.d("encryption", encrypted.length + "");
             return encrypted;
         }
         catch (Exception e) {
             e.printStackTrace();
-            Log.d("encryption", e.toString());
             return null;
         }
     }
 
-    public static byte[] decrypt(byte[] encrypted, String alias) {
-        try {
-            KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            Log.d("decryption", encrypted.length + "");
+    public static byte[] decrypt(byte[] encrypted, String alias) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException, UnrecoverableKeyException, NoSuchProviderException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+        keyStore.load(null);
 
-            PrivateKey privateKey = (PrivateKey) keyStore.getKey(alias, null);
-            KeyFactory keyFactory = KeyFactory.getInstance(privateKey.getAlgorithm(),ANDROID_KEY_STORE);
-            Log.d("decryption", keyFactory.getKeySpec(privateKey, KeyInfo.class).isInsideSecureHardware() + "");
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-            cipher.init(Cipher.DECRYPT_MODE, privateKey);
-            return cipher.doFinal(encrypted);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            Log.d("decryption", e.toString());
-            return null;
-        }
+        PrivateKey privateKey = (PrivateKey) keyStore.getKey(alias, null);
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return cipher.doFinal(encrypted);
     }
 
     public static void deleteKey(String alias) throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException {

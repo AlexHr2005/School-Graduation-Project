@@ -60,13 +60,14 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
             @Override
             public void onClick(View view) {
                 if(!workflow.isRunning()) {
-                    workflow.setRunning(true);
-                    for(int i = 0; i < WorkflowsList.size(); i++) {
-                        if(i != position) {
-                            WorkflowsList.getWorkflowByPosition(i).setAccessible(false);
+                    if(workflow.run(context.getApplicationContext())) {
+                        workflow.setRunning(true);
+                        for (int i = 0; i < WorkflowsList.size(); i++) {
+                            if (i != position) {
+                                WorkflowsList.getWorkflowByPosition(i).setAccessible(false);
+                            }
                         }
                     }
-                    workflow.run(context.getApplicationContext());
                 }
                 else {
                     workflow.setRunning(false);
