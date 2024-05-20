@@ -33,7 +33,6 @@ public abstract class AlarmModule extends Module {
         BroadcastReceiversManager.registerAlarmReceiver();
         // bottom line requires API >= 26
         alarm = new Alarm(repetitionTime.getHour(), repetitionTime.getMinute());
-        Log.d("lalala", "alarm to be scheduled for " + subhead);
         alarm.schedule(context, subhead);
     }
 
@@ -42,6 +41,5 @@ public abstract class AlarmModule extends Module {
         BroadcastReceiversManager.unregisterAlarmReceiver();
         alarm.cancel();
         AlarmRingActivity.cancelSnoozedAlarm();
-        Log.d("lalala", "alarm module stopped");
     }
 }

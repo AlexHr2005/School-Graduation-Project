@@ -27,7 +27,6 @@ public class CallReceiverModule extends PhoneCallModule{
     @Override
     public void stopExecution() {
         BroadcastReceiversManager.unregisterCallReceiver();
-        Log.d("lalala", "call receiver module stopped");
     }
 
     @Override

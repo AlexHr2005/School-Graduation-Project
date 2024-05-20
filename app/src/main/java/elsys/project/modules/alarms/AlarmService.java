@@ -29,8 +29,6 @@ public class AlarmService extends Service {
         Intent notificationIntent = new Intent(this, AlarmRingActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
-        Log.d("lalala", "bababa");
-
         String alarmTitle = "ALARM";
 
         Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID)
@@ -41,8 +39,6 @@ public class AlarmService extends Service {
                 .build();
 
         mediaPlayer.start();
-
-        Log.d("lalala", "boyko started talking");
 
         long[] vibration_pattern = {0, 100, 1000};
         vibrator.vibrate(vibration_pattern, 0);

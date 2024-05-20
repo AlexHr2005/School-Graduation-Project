@@ -34,6 +34,5 @@ public class SmsReceiverModule extends SmsModule{
     @Override
     public void stopExecution() {
         BroadcastReceiversManager.unregisterSmsReceiver();
-        Log.d("lalala", "sms receiver module stopped");
     }
 }

@@ -124,8 +124,6 @@ public class FullScreenDialog extends DialogFragment {
                         }
                         Module newModule = null;
 
-                        Log.d("module items", "1");
-
                         if(pickedTitle.equals(Module.ALARM)) {
                             LocalTime timePickerValue;
                             timePickerValue = LocalTime.of(materialTimePicker.getHour(), materialTimePicker.getMinute());
@@ -135,7 +133,6 @@ public class FullScreenDialog extends DialogFragment {
                             else if(pickedSubhead.equals(Module.SOUND_ALARM)) {
                                 newModule = new SoundAlarmModule(timePickerValue);
                             }
-                            Log.d("module items", "2");
                         }
                         else if(pickedTitle.equals(Module.SMS)) {
                             if(pickedSubhead.equals(Module.SEND_SMS)) {
@@ -144,21 +141,16 @@ public class FullScreenDialog extends DialogFragment {
                             else if(pickedSubhead.equals(Module.RECEIVE_SMS)) {
                                 newModule = new SmsReceiverModule(optionsInputs.get(0).getText().toString(), optionsInputs.get(1).getText().toString());
                             }
-                            Log.d("module items", "3");
                         }
                         else if(pickedTitle.equals(Module.PHONE_CALL)) {
                             if(pickedSubhead.equals(Module.RECEIVE_PHONE_CALL)) {
                                 newModule = new CallReceiverModule(optionsInputs.get(0).getText().toString());
                             }
-                            Log.d("module items", "4");
                         }
                         BuildWorkflowActivity.modules.add(newModule);
                         BuildWorkflowActivity.adapter.notifyDataSetChanged();
-                        Log.d("module items", "5");
                         createModule.setVisibility(View.VISIBLE);
-                        Log.d("module items", "6");
                         recyclerView.setVisibility(View.VISIBLE);
-                        Log.d("module items", "7");
                         dismiss();
                     }
                 });
@@ -283,10 +275,8 @@ public class FullScreenDialog extends DialogFragment {
         for(String permission : permissions) {
             if (ActivityCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                 permissionsToRequire.add(permission);
-                Log.d("lalala", permission);
             }
         }
-        Log.d("lalala", permissionsToRequire.size() + "");
         requestPermissionsLauncher.launch(permissionsToRequire.toArray(new String[permissionsToRequire.size()]));
     }
 }

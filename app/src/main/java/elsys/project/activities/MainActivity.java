@@ -78,9 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(context, BuildWorkflowActivity.class);
-                        Log.d("Workflows file lines", String.valueOf(input.getText()));
                         intent.putExtra("Workflow name", input.getText().toString());
-                        Log.d("Workflows file lines", "12");
                         startActivity(intent);
                     }
                 })

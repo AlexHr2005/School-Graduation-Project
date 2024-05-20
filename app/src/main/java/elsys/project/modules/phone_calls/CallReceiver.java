@@ -17,12 +17,10 @@ public class CallReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("lalala", "a");
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
 
         if(TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
             unansweredCall = true;
-            Log.d("lalala", "b");
         }
         //case for covering the user answering a call
         if(TelephonyManager.EXTRA_STATE_OFFHOOK.equals(state)) {
@@ -30,11 +28,8 @@ public class CallReceiver extends BroadcastReceiver {
         }
         //when there are no more calls in progress, checking if the user has answered the call
         if(TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
-            Log.d("lalala", "c");
             if(unansweredCall) {
-                Log.d("lalala", "d");
                 unansweredCall = false;
-                Log.d("lalala", "d1");
 
                 boolean rightCall = true;
 
@@ -45,7 +40,6 @@ public class CallReceiver extends BroadcastReceiver {
                 }
 
                 if(rightCall) {
-                    Log.d("lalala", "e");
                     Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
                     executeModule.putExtra("command", "unregister callReceiver");
                     context.sendBroadcast(executeModule);

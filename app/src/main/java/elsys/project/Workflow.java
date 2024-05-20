@@ -84,21 +84,14 @@ public class Workflow {
             for(String line : lines) {
                 line += "a";
                 String[] lineParts = line.split("[:();]");
-                for(String linePart : lineParts) {
-                    Log.d("lalala", linePart);
-                }
-                Log.d("lalala", lineParts.length + "");
 
                 if(lineParts[0].equals(Module.ALARM)) {
-                    Log.d("lalala", "it is alarm");
                     int hours = Integer.parseInt(lineParts[2]);
                     int minutes = Integer.parseInt(lineParts[3]);
                     if(lineParts[1].equals(Module.SILENT_ALARM)) {
-                        Log.d("lalala", "it is background alarm");
                         currModule = new SilentAlarmModule(LocalTime.of(hours, minutes));
                     }
                     else if(lineParts[1].equals(Module.SOUND_ALARM)) {
-                        Log.d("lalala", "it is sound alarm");
                         currModule = new SoundAlarmModule(LocalTime.of(hours, minutes));
                     }
                 }
@@ -119,13 +112,11 @@ public class Workflow {
                     }
                 }
                 modules.add(currModule);
-                Log.d("lalala", "module added");
             }
             BroadcastReceiversManager.registerModuleExecutionReceiver();
             ModuleExecutionReceiver.setModules(modules);
             Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
             context.sendBroadcast(executeModule);
-            Log.d("lalala", "end");
             return true;
         }
         catch (Exception e) {
@@ -135,7 +126,6 @@ public class Workflow {
     }
 
     public void stop(Context context) {
-        Log.d("lalala", "stop workflow");
         Intent stopWorkflow = new Intent("project.elsys.STOP_WORKFLOW");
         context.sendBroadcast(stopWorkflow);
     }

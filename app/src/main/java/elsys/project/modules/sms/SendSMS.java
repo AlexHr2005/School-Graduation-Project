@@ -17,9 +17,7 @@ public class SendSMS {
     public void sendMessage(String message) {
         try {
             SmsManager smsManager = SmsManager.getDefault();
-            Log.d("lalala", "sending sms to " + phoneNo + ": " + message);
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
-            Log.d("lalala", "sending sms to " + phoneNo + ": " + message);
         } catch (Exception e) {
             Toast.makeText(context, "Automation app failed to send SMS", Toast.LENGTH_LONG).show();
         }

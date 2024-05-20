@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import elsys.project.CryptoManager;
 import elsys.project.R;
@@ -89,7 +90,7 @@ public class BuildWorkflowActivity extends AppCompatActivity {
             }
             byte[] encrypted = CryptoManager.encrypt(workflowName, fileContent);
             Log.d("encryption", fileContent);
-            //Log.d("encryption", encrypted);
+            Log.d("encryption", Arrays.toString(encrypted));
 
             try (FileOutputStream outputStream = new FileOutputStream(workflowFile)) {
                 outputStream.write(encrypted);

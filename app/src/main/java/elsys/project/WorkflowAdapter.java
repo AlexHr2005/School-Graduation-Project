@@ -41,14 +41,11 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
 
     @Override
     public void onBindViewHolder(@NonNull WorkflowViewHolder holder, int position) {
-        Log.d("worflow items count", ""+ getItemCount());
         Workflow workflow = WorkflowsList.getWorkflowByPosition(position);
-        Log.d("lalala", workflow.getName());
         if(workflow.isRunning()) {
             holder.startOrStopButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.stop_workflow_icon));
         }
         else holder.startOrStopButton.setIcon(AppCompatResources.getDrawable(context, R.drawable.start_workflow_icon));
-        Log.d("workflow list", workflow.isAccessible() + "");
 
         holder.startOrStopButton.setEnabled(workflow.isAccessible());
 
@@ -90,7 +87,6 @@ public class WorkflowAdapter extends RecyclerView.Adapter<WorkflowAdapter.Workfl
         }
         else {
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
-            Log.d("workflow margin", ""+ params.bottomMargin);
             params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, 0);
             holder.itemView.setLayoutParams(params);
         }

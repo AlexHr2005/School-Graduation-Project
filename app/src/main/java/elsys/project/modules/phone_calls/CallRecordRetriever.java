@@ -43,7 +43,6 @@ public class CallRecordRetriever {
             }
             cursor.close();
         }
-        Log.d("lalala", number);
         return number;
     }
 }

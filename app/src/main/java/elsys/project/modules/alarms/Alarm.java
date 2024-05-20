@@ -25,7 +25,6 @@ public class Alarm {
     public void schedule(Context context, String alarmType) {
         requestCode++;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Log.d("lalala", alarmType + " written in the Alarm class");
         Intent intent = new Intent("com.example.myapp.FIRE_ALARM");
         intent.putExtra("Alarm type", alarmType);
 
@@ -35,7 +34,6 @@ public class Alarm {
         calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + hour);
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + minute);
 
-        Log.d("lalala", "alarm created and ready to be scheduled for after " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
         //RTC_WAKEUP - this type of alarm will wake the device if it's screen is off
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if(alarmManager.canScheduleExactAlarms()) {

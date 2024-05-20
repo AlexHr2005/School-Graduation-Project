@@ -30,12 +30,8 @@ public class SendSmsModule extends SmsModule{
     public void execute() {
         SendSMS sendSMS = new SendSMS(targetNumber, context);
         sendSMS.sendMessage(text);
-        //Log.d("lalala", smsSent + "");
-        Log.d("lalala", "sms sent");
         Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
-        Log.d("lalala", "1");
         context.sendBroadcast(executeModule);
-        Log.d("lalala", "3");
     }
 
     @Override

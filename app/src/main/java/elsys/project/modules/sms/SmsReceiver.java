@@ -20,13 +20,11 @@ public class SmsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("lalala", number + " " + text);
         Bundle bundle = intent.getExtras();
         String format = bundle.getString("format");
 
         // a message might be divided into multiple PDUs
         Object[] pdus = (Object[]) bundle.get(SmsReceiver.pdus);
-        Log.d("lalala", bundle.get(SmsReceiver.pdus).getClass().toString());
         SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdus[0], format);
         String sender = smsMessage.getOriginatingAddress();
 
@@ -36,9 +34,6 @@ public class SmsReceiver extends BroadcastReceiver {
                     (byte[]) pdu, format);
             messageBody += currSmsMessage.getMessageBody();
         }
-        Log.d("lalala", pdus.length + " pdus");
-
-        Log.d("lalala", sender + ": " + messageBody);
 
         boolean rightSMS = true;
 
@@ -56,11 +51,8 @@ public class SmsReceiver extends BroadcastReceiver {
 
         if(rightSMS) {
             Intent executeModule = new Intent("project.elsys.EXECUTE_MODULE");
-            Log.d("lalala", "1");
             executeModule.putExtra("command", "unregister smsReceiver");
-            Log.d("lalala", "2");
             context.sendBroadcast(executeModule);
-            Log.d("lalala", "3");
         }
     }
 }
